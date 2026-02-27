@@ -963,6 +963,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  object-fit: contain;
 }
 
 #logo-upload::before {

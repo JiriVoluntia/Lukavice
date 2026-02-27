@@ -276,6 +276,8 @@ async function openSettingsModal() {
   logoInputWrapper.style.width = '120px';
   logoInputWrapper.style.height = '120px';
   logoInputWrapper.style.flexShrink = '0';
+  logoInputWrapper.style.minWidth = '120px';
+  logoInputWrapper.style.minHeight = '120px';
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
