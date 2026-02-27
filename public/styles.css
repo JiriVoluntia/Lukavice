@@ -953,8 +953,8 @@ main {
 }
 
 #logo-upload {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   padding: 0;
   background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
   border: 2px dashed rgba(0, 0, 0, 0.2);
