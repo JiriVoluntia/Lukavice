@@ -44,11 +44,14 @@ class ModalManager {
     content.id = 'modalContent';
     modal.appendChild(content);
     
-    // Buttons container
+    // Buttons container (bude v headeru)
     const buttons = document.createElement('div');
     buttons.className = 'modal-buttons';
     buttons.id = 'modalButtons';
-    modal.appendChild(buttons);
+    buttons.style.position = 'absolute';
+    buttons.style.top = '24px';
+    buttons.style.right = '24px';
+    header.appendChild(buttons);
     
     overlay.appendChild(modal);
     document.body.appendChild(overlay);

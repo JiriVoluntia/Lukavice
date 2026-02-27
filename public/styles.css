@@ -826,24 +826,29 @@ main {
   flex-direction: column;
   gap: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .modal-header {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .modal-title {
   font-size: 22px;
   color: #000000;
   font-weight: 400;
+  margin: 0;
 }
 
 .modal-subtitle {
   font-size: 18px;
   color: rgba(0, 0, 0, 0.6);
   font-weight: 400;
+  margin: 0;
 }
 
 .modal-content {
@@ -856,6 +861,7 @@ main {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .modal-btn {
