@@ -1050,13 +1050,13 @@ main {
 
 /* TWO COLUMN LAYOUT */
 .modal-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 20px;
+  align-items: stretch;
 }
 
 .modal-row.full {
-  grid-template-columns: 1fr;
+  flex-direction: column;
 }
 
 @media (max-width: 600px) {

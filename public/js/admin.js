@@ -354,6 +354,9 @@ async function openSettingsModal() {
   
   // Řádek 2: Starosta a 1. Místostarosta
   const row2 = modalManager.addRow();
+  row2.style.display = 'grid';
+  row2.style.gridTemplateColumns = '1fr 1fr';
+  row2.style.gap = '20px';
   
   // Starosta
   const starostaLabelWrapper = document.createElement('div');
