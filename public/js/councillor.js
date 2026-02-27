@@ -1,100 +1,18 @@
 // Dynamické načtení zastupitele
 async function loadCouncillor(councillorId) {
-  try {
-    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
-    
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/zastupitele/${fileName}.json`);
-        const data = await res.json();
-        if (data.id === councillorId) {
-          return data;
-        }
-      } catch (e) {
-        // Pokračuj dál
-      }
-    }
-  } catch (error) {
-    console.error('Chyba při načítání zastupitele:', error);
-  }
-  return null;
+  const councillors = await loadCouncillors();
+  return councillors[councillorId] || null;
 }
 
 // Dynamické načtení strany
 async function loadParty(partyId) {
-  try {
-    const fileList = await fetch('/api/list?dir=data/strany').then(r => r.json());
-    
-    for (const fileName of fileList) {
-      const res = await fetch(`data/strany/${fileName}.json`);
-      const data = await res.json();
-      if (data.id === partyId) {
-        return data;
-      }
-    }
-  } catch (error) {
-    console.error('Chyba při načítání strany:', error);
-  }
-  return null;
+  const parties = await loadParties();
+  return parties[partyId] || null;
 }
 
 // Dynamické načtení všech návrhů
 async function loadAllProposals() {
-  try {
-    const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
-    
-    const proposals = [];
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/navrhy/${fileName}.json`);
-        const data = await res.json();
-        proposals.push(data);
-      } catch (e) {
-        // Pokračuj dál
-      }
-    }
-    return proposals;
-  } catch (error) {
-    console.error('Chyba při načítání návrhů:', error);
-    return [];
-  }
-}
-
-// Načtení zastupitele podle ID
-async function loadCouncillorById(councillorId) {
-  try {
-    const names = [
-      'bohuslav-svoboda', 'jiri-pospisil', 'zdenek-zajicek', 'jan-wolf', 'michal-hroza',
-      'alexandra-udzenija', 'tomas-portlik', 'jan-chabr', 'zdenek-kovarik', 'jiri-ptacek',
-      'david-vodrazka', 'lucie-kubesa', 'jakub-leps', 'martin-sedeke', 'pavel-mares',
-      'hana-kordova-marvanova', 'tomas-pek', 'tomas-kastovskij', 'tomas-slabihoudek',
-      'patrik-nacher', 'ondrej-prokop', 'barbora-razga', 'vaclav-bilek', 'jan-kolar',
-      'martin-benkovic', 'radmila-kleslova', 'jan-husbauer', 'radomir-nepil', 'marcela-plesnikova',
-      'stanislav-nekolny', 'martin-hrubcik', 'marta-gellova', 'lenka-vedralova',
-      'zdenek-hrib', 'jana-komrskova', 'adam-zabransky', 'magdalena-valdmanova', 'daniel-mazur',
-      'viktor-mahrik', 'eva-tylova', 'bara-soukup', 'jiri-bruzek', 'zuzana-freitas-lopesova',
-      'gabriela-lnenicka', 'jaromir-beranek', 'david-bodecek',
-      'adam-scheinherr', 'mariana-capkova', 'pavel-vyhnanek', 'petr-hlavacek', 'katerina-arnotova',
-      'antonin-klecanda', 'david-prochazka', 'zuzana-hamanova', 'petr-zeman', 'pavel-zelenka',
-      'kamila-matejkova', 'hana-trestikova', 'kristyna-drapala', 'vladan-broz', 'jiri-knitl',
-      'milan-urban', 'josef-nerusil', 'zdenek-seidl'
-    ];
-    
-    for (const name of names) {
-      try {
-        const res = await fetch(`data/zastupitele/${name}.json`);
-        const data = await res.json();
-        if (data.id === councillorId) {
-          return data;
-        }
-      } catch (e) {
-        // Pokračuj dál
-      }
-    }
-  } catch (error) {
-    console.error('Chyba při načítání zastupitele:', error);
-  }
-  return null;
+  return await loadProposals();
 }
 
 // Inicializace

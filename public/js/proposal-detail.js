@@ -27,47 +27,10 @@ function truncateText(text, maxLength = 380) {
   return { text: text, hasMore: false };
 }
 
-// Dynamické načtení zastupitelů
-async function loadCouncillors() {
-  const councillors = {};
-  try {
-    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
-    
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/zastupitele/${fileName}.json`);
-        const data = await res.json();
-        councillors[data.id] = data;
-      } catch (e) {
-        // Pokračuj dál
-      }
-    }
-  } catch (error) {
-    console.error('Chyba při načítání zastupitelů:', error);
-  }
-  return councillors;
-}
-
-// Dynamické načtení návrhů
+// Dynamické načtení návrhu
 async function loadProposal(proposalId) {
-  try {
-    const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
-    
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/navrhy/${fileName}.json`);
-        const data = await res.json();
-        if (data.id === proposalId) {
-          return data;
-        }
-      } catch (e) {
-        // Pokračuj dál
-      }
-    }
-  } catch (error) {
-    console.error('Chyba při načítání návrhu:', error);
-  }
-  return null;
+  const proposals = await loadProposals();
+  return proposals.find(p => p.id === proposalId) || null;
 }
 
 // Vytvoření HTML pro avatar

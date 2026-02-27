@@ -20,45 +20,13 @@ function getTimeAgo(dateString) {
 }
 
 // Dynamické načtení zastupitelů
-async function loadCouncillors() {
+async function loadCouncillorsForProposals() {
   const councillors = {};
-  try {
-    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
-    
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/zastupitele/${fileName}.json`);
-        const data = await res.json();
-        councillors[data.id] = data.jmeno;
-      } catch (e) {
-        // Pokračuj dál
-      }
-    }
-  } catch (error) {
-    console.error('Chyba při načítání zastupitelů:', error);
-  }
+  const allCouncillors = await loadCouncillors();
+  Object.values(allCouncillors).forEach(c => {
+    councillors[c.id] = c.jmeno;
+  });
   return councillors;
-}
-
-// Dynamické načtení návrhů
-async function loadProposals() {
-  const proposals = [];
-  try {
-    const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
-    
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/navrhy/${fileName}.json`);
-        const data = await res.json();
-        proposals.push(data);
-      } catch (e) {
-        // Pokračuj dál
-      }
-    }
-  } catch (error) {
-    console.error('Chyba při načítání návrhů:', error);
-  }
-  return proposals;
 }
 
 // Vytvoření HTML pro návrh
@@ -102,7 +70,7 @@ function createProposalHTML(proposal, councillors) {
 
 // Inicializace
 async function init() {
-  const councillors = await loadCouncillors();
+  const councillors = await loadCouncillorsForProposals();
   const proposals = await loadProposals();
   const container = document.getElementById('proposalsContainer');
   
