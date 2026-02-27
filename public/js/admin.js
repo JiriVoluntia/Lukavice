@@ -254,10 +254,11 @@ async function openSettingsModal() {
   // Řádek 1: Logo a Název + Okres
   const row1 = modalManager.addRow();
   row1.style.gap = '20px';
-  row1.style.alignItems = 'stretch';
+  row1.style.alignItems = 'flex-start';
   row1.style.display = 'flex';
+  row1.style.width = '100%';
   
-  // Logo upload - vlevo (aspect ratio 1:1, height fill)
+  // Logo upload - vlevo (120x120 square)
   const logoField = document.createElement('div');
   logoField.style.display = 'flex';
   logoField.style.flexDirection = 'column';
@@ -278,6 +279,8 @@ async function openSettingsModal() {
   logoInputWrapper.style.flexShrink = '0';
   logoInputWrapper.style.minWidth = '120px';
   logoInputWrapper.style.minHeight = '120px';
+  logoInputWrapper.style.alignItems = 'center';
+  logoInputWrapper.style.justifyContent = 'center';
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
