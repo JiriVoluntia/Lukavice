@@ -127,7 +127,7 @@ async function init() {
         </div>
         <div class="date-info">
           <span class="date-text">${timeAgo}</span>
-          <img src="images/icons/datum.svg" alt="Datum" class="date-icon">
+          <img src="images/icons/Datum.svg" alt="Datum" class="date-icon">
         </div>
       </div>
       
