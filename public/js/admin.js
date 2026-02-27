@@ -1,4 +1,5 @@
 // Navigace mezi sekcemi
+// Cache bust: 2024-02-27-001
 function initNavigation() {
   const params = new URLSearchParams(window.location.search);
   const section = params.get('section') || 'proposals';
