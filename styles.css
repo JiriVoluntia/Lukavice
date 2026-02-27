@@ -1,0 +1,818 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  background-color: #FAFBFA;
+  color: #000000;
+  line-height: 1.2em;
+}
+
+* {
+  font-weight: 400;
+}
+
+a {
+  color: #0059FF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.nav-button {
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  text-decoration: none;
+}
+
+/* NAVIGAČNÍ MENU */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 90px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1320px;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.nav-logo {
+  height: 60px;
+  width: auto;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 30px;
+  width: fit-content;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  filter: opacity(0.6);
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  color: #000000;
+}
+
+.nav-button:hover .nav-icon {
+  filter: opacity(1) drop-shadow(0 0 0 #3B6629);
+}
+
+.nav-button.active {
+  color: #000000;
+}
+
+.nav-button.active .nav-icon {
+  filter: opacity(1) drop-shadow(0 0 0 #3B6629);
+}
+
+/* MOBILNÍ STYL */
+@media (max-width: 1319px) {
+  .nav-buttons {
+    display: none;
+  }
+  
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .hamburger span {
+    width: 24px;
+    height: 3px;
+    background-color: #000000;
+    transition: all 0.3s ease;
+  }
+  
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+  }
+  
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+  
+  .nav-mobile {
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-mobile.active {
+    display: flex;
+  }
+  
+  .nav-button-mobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    font-size: 18px;
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .nav-button-mobile:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .nav-button-mobile.active {
+    background-color: rgba(59, 102, 41, 0.1);
+  }
+  
+  .nav-button-mobile .nav-icon {
+    filter: opacity(1);
+  }
+}
+
+@media (min-width: 1320px) {
+  .hamburger {
+    display: none;
+  }
+  
+  .nav-mobile {
+    display: none !important;
+  }
+}
+
+/* MAIN CONTAINER */
+main {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 140px 10px 0 10px;
+  width: 100%;
+}
+
+/* PRVKY */
+
+/* 1. INDIKÁTOR SCHVÁLENO/NESCHVÁLENO */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  border-radius: 1000px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 400;
+}
+
+.status-badge.approved {
+  background-color: rgba(77, 255, 0, 0.6);
+}
+
+.status-badge.rejected {
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+/* 2. DATUM */
+.date-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto;
+}
+
+.date-text {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+}
+
+.date-icon {
+  width: 24px;
+  height: 24px;
+  filter: opacity(0.6);
+}
+
+/* 3. NAVRHL */
+.proposer-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.proposer-label {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+}
+
+.proposer-name {
+  font-size: 18px;
+  color: #0059FF;
+  text-decoration: none;
+  height: fit-content;
+}
+
+.proposer-name:hover {
+  text-decoration: underline;
+}
+
+/* 4. HLASOVÁNÍ */
+.voting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+  height: fit-content;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.voting-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.voting-label {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+}
+
+.voting-count {
+  font-size: 18px;
+  height: fit-content;
+}
+
+.voting-count.pro {
+  color: #3B6629;
+}
+
+.voting-count.against {
+  color: #662929;
+}
+
+/* NÁVRH BOX */
+.proposal-box {
+  width: 100%;
+  height: fit-content;
+  padding: 24px;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.proposal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.proposal-title {
+  font-size: 26px;
+  color: #000000;
+  margin: 20px 0;
+  height: fit-content;
+}
+
+.proposal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* HLAVNÍ STRÁNKA */
+.page-title {
+  font-size: 35px;
+  color: #000000;
+  text-align: left;
+  margin-bottom: 30px;
+  height: fit-content;
+}
+
+.proposals-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* STRÁNKA ZASTUPITELŮ */
+.composition-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.composition-header {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.composition-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.composition-label {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+}
+
+.composition-count {
+  font-size: 18px;
+  height: fit-content;
+  font-weight: 400;
+}
+
+.composition-visualization {
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+  width: fit-content;
+  margin-top: 10px;
+  grid-auto-flow: column;
+}
+
+.composition-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .composition-circle {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .composition-visualization {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .composition-circle {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .composition-visualization {
+    gap: 6px;
+  }
+}
+
+/* PROFIL ZASTUPITELE */
+.councillor-profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.councillor-profile-header {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.councillor-profile-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+  width: 100%;
+}
+
+.councillor-profile-breadcrumb a {
+  color: #0059FF;
+  text-decoration: none;
+}
+
+.councillor-profile-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.councillor-profile-breadcrumb span {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.councillor-profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.councillor-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.councillor-profile-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #d0d0d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #666;
+  font-weight: 400;
+}
+
+.councillor-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.councillor-profile-name {
+  font-size: 35px;
+  color: #000000;
+  height: fit-content;
+  line-height: 1.2;
+}
+
+.councillor-profile-party {
+  font-size: 18px;
+  color: #000000;
+  height: fit-content;
+  line-height: 1.2;
+}
+
+.councillor-profile-description {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+  max-width: 600px;
+  line-height: 1.2;
+}
+
+/* PŘEPÍNACÍ BAR */
+.toggle-bar {
+  display: flex;
+  gap: 0px;
+  padding: 2px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.toggle-button {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0);
+  padding: 10px;
+  gap: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: fit-content;
+}
+
+.toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.toggle-button.active {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+}
+
+.councillors-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.party-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.party-name {
+  font-size: 26px;
+  color: #000000;
+  height: fit-content;
+}
+
+.councillors-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: fit-content;
+}
+
+.councillor-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.councillor-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.councillor-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.councillor-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #d0d0d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #666;
+  font-weight: 400;
+}
+
+.councillor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  text-align: left;
+}
+
+.councillor-name {
+  font-size: 20px;
+  color: #000000;
+  height: fit-content;
+}
+
+.councillor-function {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+}
+
+/* DETAIL NÁVRHU */
+.proposal-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.proposal-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.proposal-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+  flex: 1;
+}
+
+.proposal-breadcrumb a {
+  color: #0059FF;
+  text-decoration: none;
+}
+
+.proposal-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.proposal-breadcrumb span {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.proposal-detail-title {
+  font-size: 35px;
+  color: #000000;
+  height: fit-content;
+  margin: 10px 0;
+}
+
+.proposal-description-label {
+  font-size: 18px;
+  color: #000000;
+  height: fit-content;
+}
+
+.proposal-description-text {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+}
+
+.proposal-read-more {
+  display: inline;
+  color: #0059FF;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.proposal-read-more:hover {
+  text-decoration: underline;
+}
+
+.voting-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.voting-section-title {
+  font-size: 18px;
+  color: #000000;
+  height: fit-content;
+}
+
+.voting-group-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.voting-group-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.voting-label-text {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  height: fit-content;
+}
+
+.voting-count-badge {
+  font-size: 18px;
+  height: fit-content;
+}
+
+.voting-count-badge.pro {
+  color: #3B6629;
+}
+
+.voting-count-badge.against {
+  color: #662929;
+}
+
+.voting-avatars {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.voting-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.voting-avatar:hover {
+  opacity: 0.8;
+}
+
+.voting-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.voting-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #d0d0d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #666;
+}

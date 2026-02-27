@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hlasování - Město Novákov</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <img src="images/logo.png" alt="Logo" class="nav-logo">
+      <div class="nav-buttons">
+        <a href="index.html" class="nav-button active">
+          <img src="images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
+          <span>Hlasování</span>
+        </a>
+        <a href="councillors.html" class="nav-button">
+          <img src="images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
+          <span>Zastupitelé</span>
+        </a>
+        <a href="#" class="nav-button" onclick="openWeb(event)">
+          <img src="images/icons/web.svg" alt="Web" class="nav-icon">
+          <span>Web</span>
+        </a>
+      </div>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="index.html" class="nav-button-mobile active">
+        <img src="images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
+        <span>Hlasování</span>
+      </a>
+      <a href="councillors.html" class="nav-button-mobile">
+        <img src="images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
+        <span>Zastupitelé</span>
+      </a>
+      <a href="#" class="nav-button-mobile" onclick="openWeb(event)">
+        <img src="images/icons/web.svg" alt="Web" class="nav-icon">
+        <span>Web</span>
+      </a>
+    </div>
+  </nav>
+
+  <main style="margin-top: 90px;">
+    <!-- Obsah stránky -->
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
