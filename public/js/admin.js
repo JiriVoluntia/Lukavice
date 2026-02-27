@@ -263,7 +263,7 @@ async function openSettingsModal() {
   logoField.style.flexDirection = 'column';
   logoField.style.gap = '4px';
   logoField.style.flexShrink = '0';
-  logoField.style.width = 'fit-content';
+  logoField.style.width = 'auto';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
@@ -273,10 +273,9 @@ async function openSettingsModal() {
   
   const logoInputWrapper = document.createElement('div');
   logoInputWrapper.style.display = 'flex';
-  logoInputWrapper.style.aspectRatio = '1 / 1';
-  logoInputWrapper.style.flex = '1';
-  logoInputWrapper.style.minHeight = '0';
-  logoInputWrapper.style.minWidth = '0';
+  logoInputWrapper.style.width = '120px';
+  logoInputWrapper.style.height = '120px';
+  logoInputWrapper.style.flexShrink = '0';
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
@@ -366,12 +365,14 @@ async function openSettingsModal() {
   row2.style.display = 'grid';
   row2.style.gridTemplateColumns = '1fr 1fr';
   row2.style.gap = '20px';
+  row2.style.width = '100%';
   
   // Starosta
   const starostaLabelWrapper = document.createElement('div');
   starostaLabelWrapper.style.display = 'flex';
   starostaLabelWrapper.style.flexDirection = 'column';
   starostaLabelWrapper.style.gap = '4px';
+  starostaLabelWrapper.style.width = '100%';
   
   const starostaLabel = document.createElement('label');
   starostaLabel.className = 'form-field-label';
@@ -380,6 +381,7 @@ async function openSettingsModal() {
   const starostaSelect = document.createElement('select');
   starostaSelect.className = 'form-field-select';
   starostaSelect.id = 'starosta';
+  starostaSelect.style.width = '100%';
   
   const emptyOption = document.createElement('option');
   emptyOption.value = '';
@@ -404,6 +406,7 @@ async function openSettingsModal() {
   mistarostaLabelWrapper.style.display = 'flex';
   mistarostaLabelWrapper.style.flexDirection = 'column';
   mistarostaLabelWrapper.style.gap = '4px';
+  mistarostaLabelWrapper.style.width = '100%';
   
   const mistarostaLabel = document.createElement('label');
   mistarostaLabel.className = 'form-field-label';
@@ -412,6 +415,7 @@ async function openSettingsModal() {
   const mistarostaSelect = document.createElement('select');
   mistarostaSelect.className = 'form-field-select';
   mistarostaSelect.id = 'mistarosta';
+  mistarostaSelect.style.width = '100%';
   
   mistarostaSelect.appendChild(emptyOption.cloneNode(true));
   
