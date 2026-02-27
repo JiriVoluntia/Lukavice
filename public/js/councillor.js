@@ -5,7 +5,7 @@ async function loadCouncillor(councillorId) {
     
     for (const fileName of fileList) {
       try {
-        const res = await fetch(`data/zastupitele/${fileName}.json`);
+        const res = await fetch(`../../data/zastupitele/${fileName}.json`);
         const data = await res.json();
         if (data.id === councillorId) {
           return data;
@@ -26,7 +26,7 @@ async function loadParty(partyId) {
     const fileList = await fetch('/api/list?dir=data/strany').then(r => r.json());
     
     for (const fileName of fileList) {
-      const res = await fetch(`data/strany/${fileName}.json`);
+      const res = await fetch(`../../data/strany/${fileName}.json`);
       const data = await res.json();
       if (data.id === partyId) {
         return data;
@@ -46,7 +46,7 @@ async function loadAllProposals() {
     const proposals = [];
     for (const fileName of fileList) {
       try {
-        const res = await fetch(`data/navrhy/${fileName}.json`);
+        const res = await fetch(`../../data/navrhy/${fileName}.json`);
         const data = await res.json();
         proposals.push(data);
       } catch (e) {
