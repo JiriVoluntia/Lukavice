@@ -708,7 +708,7 @@ main {
   color: #000000;
   text-align: center;
   height: fit-content;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .setup-steps {
@@ -716,7 +716,7 @@ main {
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   justify-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 @media (max-width: 1200px) {
