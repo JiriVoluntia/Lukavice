@@ -6,7 +6,7 @@ async function loadCouncillors() {
     
     for (const fileName of fileList) {
       try {
-        const res = await fetch(`../../data/zastupitele/${fileName}.json`);
+        const res = await fetch(`data/zastupitele/${fileName}.json`);
         const data = await res.json();
         councillors[data.id] = data;
       } catch (e) {
@@ -27,7 +27,7 @@ async function loadParties() {
     
     for (const fileName of fileList) {
       try {
-        const res = await fetch(`../../data/strany/${fileName}.json`);
+        const res = await fetch(`data/strany/${fileName}.json`);
         const data = await res.json();
         parties[data.id] = data;
       } catch (e) {
@@ -43,7 +43,7 @@ async function loadParties() {
 // Načtení funkcí
 async function loadFunctions() {
   try {
-    const res = await fetch('../../data/obecne-info.json');
+    const res = await fetch('data/obecne-info.json');
     const data = await res.json();
     return data.funkce || [];
   } catch (error) {

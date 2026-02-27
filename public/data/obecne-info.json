@@ -1,0 +1,32 @@
+{
+  "_comment_info": "=== ZÁKLADNÍ INFORMACE ===",
+  "info": {
+    "nazevObce": "Město Novákov",
+    "logo": "images/logo-novakovsk.png",
+    "web": "https://www.obeclukavice.cz/"
+  },
+
+  "_comment_functions": "=== FUNKCE ===",
+  "funkce": [
+    {
+      "id": "function-1",
+      "nazev": "Starosta",
+      "zastupitel": "councillor-1"
+    },
+    {
+      "id": "function-2",
+      "nazev": "Místostarosta",
+      "zastupitel": "councillor-2"
+    },
+    {
+      "id": "function-3",
+      "nazev": "Místostarosta",
+      "zastupitel": "councillor-5"
+    },
+    {
+      "id": "function-4",
+      "nazev": "Tajemník",
+      "zastupitel": "councillor-7"
+    }
+  ]
+}

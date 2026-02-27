@@ -1,0 +1,11 @@
+{
+  "id": "proposal-1",
+  "nazev": "Nový park v centru města",
+  "popis": "Vytvoření nového veřejného parku s dětským hřištěm a sportovním vybavením v centru Prahy. Projekt zahrnuje obnovu zeleně, instalaci moderního vybavení a vytvoření prostoru pro setkávání občanů.",
+  "datum": "2025-09-10",
+  "navrhovatel": "jiricepelka",
+  "pro": ["jiricepelka"],
+  "proti": [""],
+  "dokumenty": ["https://example.com/docs/park-projekt.pdf", "https://example.com/docs/park-rozpocet.pdf"],
+  "vysledek": "SCHVÁLENO"
+}

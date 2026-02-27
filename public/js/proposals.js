@@ -27,7 +27,7 @@ async function loadCouncillors() {
     
     for (const fileName of fileList) {
       try {
-        const res = await fetch(`../../data/zastupitele/${fileName}.json`);
+        const res = await fetch(`data/zastupitele/${fileName}.json`);
         const data = await res.json();
         councillors[data.id] = data.jmeno;
       } catch (e) {
@@ -48,7 +48,7 @@ async function loadProposals() {
     
     for (const fileName of fileList) {
       try {
-        const res = await fetch(`../../data/navrhy/${fileName}.json`);
+        const res = await fetch(`data/navrhy/${fileName}.json`);
         const data = await res.json();
         proposals.push(data);
       } catch (e) {
