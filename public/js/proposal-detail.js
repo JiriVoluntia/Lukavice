@@ -35,10 +35,15 @@ async function loadProposal(proposalId) {
 
 // Vytvoření HTML pro avatar
 function createAvatarHTML(councillor) {
-  if (!councillor) return '';
+  if (!councillor) {
+    console.warn('Councillor is undefined');
+    return '';
+  }
   
   const profileImage = councillor.profilovyObrazek;
   const initials = councillor.jmeno.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
+  
+  console.log(`Creating avatar for ${councillor.jmeno}, has image: ${!!profileImage}, initials: ${initials}`);
   
   if (profileImage) {
     return `<a href="councillor.html?id=${councillor.id}" class="voting-avatar" title="${councillor.jmeno}">
@@ -83,8 +88,23 @@ async function init() {
   const statusText = proposal.vysledek === 'SCHVÁLENO' ? 'Schváleno' : 'Zamítnuto';
   
   // Vytvoření HTML pro hlasující
-  const proVoters = proposal.pro.filter(id => id).map(id => createAvatarHTML(councillors[id])).filter(html => html).join('');
-  const againstVoters = proposal.proti.filter(id => id).map(id => createAvatarHTML(councillors[id])).filter(html => html).join('');
+  const proVoters = proposal.pro
+    .filter(id => id && id.trim())
+    .map(id => {
+      const councillor = councillors[id];
+      return councillor ? createAvatarHTML(councillor) : '';
+    })
+    .filter(html => html)
+    .join('');
+  
+  const againstVoters = proposal.proti
+    .filter(id => id && id.trim())
+    .map(id => {
+      const councillor = councillors[id];
+      return councillor ? createAvatarHTML(councillor) : '';
+    })
+    .filter(html => html)
+    .join('');
   
   const readMoreHTML = truncated.hasMore ? ' <a href="#" class="proposal-read-more">číst dále</a>' : '';
   
