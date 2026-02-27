@@ -88,11 +88,11 @@ function createProposalHTML(proposal, councillors) {
         <div class="voting-info">
           <div class="voting-group">
             <span class="voting-label">Pro</span>
-            <span class="voting-count pro">${proposal.pro.length}</span>
+            <span class="voting-count pro">${proposal.pro.filter(id => id).length}</span>
           </div>
           <div class="voting-group">
             <span class="voting-label">Proti</span>
-            <span class="voting-count against">${proposal.proti.length}</span>
+            <span class="voting-count against">${proposal.proti.filter(id => id).length}</span>
           </div>
         </div>
       </div>
