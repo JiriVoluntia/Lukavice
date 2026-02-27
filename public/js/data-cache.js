@@ -108,7 +108,7 @@ async function loadFunctions() {
   }
 }
 
-// Načtení návrhů s cachováním
+// Dynamické načtení návrhů s cachováním
 async function loadProposals() {
   const cached = cache.getCache('proposals');
   if (cached) return cached;
@@ -123,7 +123,7 @@ async function loadProposals() {
         const data = await res.json();
         proposals.push(data);
       } catch (e) {
-        // Pokračuj dál
+        console.error(`Chyba při načítání návrhu ${fileName}:`, e);
       }
     }
   } catch (error) {

@@ -247,3 +247,14 @@ class ModalManager {
 }
 
 const modalManager = new ModalManager();
+
+// Globální funkce pro vymazání cache
+window.clearAllCache = function() {
+  cache.clearCache('councillors');
+  cache.clearCache('parties');
+  cache.clearCache('functions');
+  cache.clearCache('proposals');
+  cache.clearCache('general_info');
+  console.log('Cache vymazána');
+  location.reload();
+};
