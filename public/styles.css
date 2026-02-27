@@ -818,7 +818,7 @@ main {
   background-color: #ffffff;
   border-radius: 20px;
   padding: 24px;
-  max-width: 500px;
+  max-width: 800px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
@@ -877,6 +877,7 @@ main {
 .modal-btn-save {
   background-color: #000000;
   color: #ffffff;
+  border-radius: 100px;
 }
 
 .modal-btn-save:hover {
@@ -949,6 +950,12 @@ main {
   outline: none;
   border-color: #0059FF;
   box-shadow: 0 0 0 3px rgba(0, 89, 255, 0.1);
+}
+
+#logo-upload {
+  width: 120px;
+  height: 120px;
+  padding: 0;
 }
 
 .form-field-select {

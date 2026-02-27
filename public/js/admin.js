@@ -270,6 +270,9 @@ async function openSettingsModal() {
   logoInput.className = 'form-field-input';
   logoInput.id = 'logo-upload';
   logoInput.accept = 'image/*';
+  logoInput.style.width = '120px';
+  logoInput.style.height = '120px';
+  logoInput.style.padding = '0';
   
   logoField.appendChild(logoLabel);
   logoField.appendChild(logoInput);
