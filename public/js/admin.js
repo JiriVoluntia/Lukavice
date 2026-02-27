@@ -254,7 +254,7 @@ async function openSettingsModal() {
   // Řádek 1: Logo a Název + Okres
   const row1 = modalManager.addRow();
   row1.style.gap = '20px';
-  row1.style.alignItems = 'flex-start';
+  row1.style.alignItems = 'stretch';
   row1.style.display = 'flex';
   
   // Logo upload - vlevo (aspect ratio 1:1, height fill)
@@ -263,7 +263,7 @@ async function openSettingsModal() {
   logoField.style.flexDirection = 'column';
   logoField.style.gap = '4px';
   logoField.style.flexShrink = '0';
-  logoField.style.minWidth = 'fit-content';
+  logoField.style.width = 'fit-content';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
@@ -273,8 +273,8 @@ async function openSettingsModal() {
   
   const logoInputWrapper = document.createElement('div');
   logoInputWrapper.style.display = 'flex';
+  logoInputWrapper.style.aspectRatio = '1 / 1';
   logoInputWrapper.style.flex = '1';
-  logoInputWrapper.style.aspectRatio = '1';
   logoInputWrapper.style.minHeight = '0';
   logoInputWrapper.style.minWidth = '0';
   
@@ -291,7 +291,6 @@ async function openSettingsModal() {
   logoInput.style.alignItems = 'center';
   logoInput.style.justifyContent = 'center';
   logoInput.style.position = 'relative';
-  logoInput.style.flex = '1';
   
   logoField.appendChild(logoLabel);
   logoInputWrapper.appendChild(logoInput);
@@ -306,6 +305,7 @@ async function openSettingsModal() {
   rightCol.style.flex = '1';
   rightCol.style.width = '100%';
   rightCol.style.minWidth = '0';
+  rightCol.style.height = 'fit-content';
   
   // Název obce
   const nazevLabelWrapper = document.createElement('div');
@@ -361,12 +361,6 @@ async function openSettingsModal() {
   
   row1.appendChild(rightCol);
   
-  // Nastavení výšky logoField na výšku rightCol
-  setTimeout(() => {
-    const rightColHeight = rightCol.offsetHeight;
-    logoField.style.height = rightColHeight + 'px';
-  }, 0);
-  
   // Řádek 2: Starosta a 1. Místostarosta
   const row2 = modalManager.addRow();
   row2.style.display = 'grid';
@@ -377,7 +371,7 @@ async function openSettingsModal() {
   const starostaLabelWrapper = document.createElement('div');
   starostaLabelWrapper.style.display = 'flex';
   starostaLabelWrapper.style.flexDirection = 'column';
-  starostaLabelWrapper.style.gap = '8px';
+  starostaLabelWrapper.style.gap = '4px';
   
   const starostaLabel = document.createElement('label');
   starostaLabel.className = 'form-field-label';
@@ -409,7 +403,7 @@ async function openSettingsModal() {
   const mistarostaLabelWrapper = document.createElement('div');
   mistarostaLabelWrapper.style.display = 'flex';
   mistarostaLabelWrapper.style.flexDirection = 'column';
-  mistarostaLabelWrapper.style.gap = '8px';
+  mistarostaLabelWrapper.style.gap = '4px';
   
   const mistarostaLabel = document.createElement('label');
   mistarostaLabel.className = 'form-field-label';
