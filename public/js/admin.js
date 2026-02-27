@@ -246,16 +246,19 @@ function saveSettings() {
 // Otevření popupu pro nastavení obce
 // Vercel cache bust: v1
 async function openSettingsModal() {
+  console.log('=== openSettingsModal START ===');
   const generalInfo = await loadGeneralInfo();
   const councillors = await loadCouncillors();
   
   const modal = modalManager.createModal('Upravit nastavení obce');
+  console.log('Modal created:', modal);
   
   // Řádek 1: Logo vlevo, Název obce + Okres vpravo
   const row1 = document.createElement('div');
   row1.style.display = 'flex';
   row1.style.gap = '20px';
   row1.style.width = '100%';
+  console.log('Row1 created');
   
   // Logo - čtverec 120x120
   const logoContainer = document.createElement('div');
@@ -280,6 +283,7 @@ async function openSettingsModal() {
   logoBox.style.cursor = 'pointer';
   logoBox.style.position = 'relative';
   logoBox.style.overflow = 'hidden';
+  console.log('Logo box created with size:', logoBox.style.width, 'x', logoBox.style.height);
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
@@ -301,6 +305,7 @@ async function openSettingsModal() {
   logoContainer.appendChild(logoLabel);
   logoContainer.appendChild(logoBox);
   row1.appendChild(logoContainer);
+  console.log('Logo container added to row1');
   
   // Pravý sloupec: Název obce + Okres
   const rightCol = document.createElement('div');
@@ -441,4 +446,6 @@ async function openSettingsModal() {
     alert('Nastavení obce uloženo');
     modalManager.closeModal();
   }, 'save');
+  
+  console.log('=== openSettingsModal END ===');
 }
