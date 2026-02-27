@@ -286,8 +286,41 @@
       modal.content.appendChild(row2);
       
       // Uložit button
-      modalManager.addButton('Uložit', () => {
-        modalManager.closeModal();
+      modalManager.addButton('Uložit', async () => {
+        const nazev = nazevInput.value;
+        const okres = okresSelect.value;
+        const starosta = starostaSelect.value;
+        const mistarosta = mistarostaSelect.value;
+        const logoFile = logoInput.files[0];
+        
+        try {
+          // Příprava dat
+          const updateData = {
+            nazevObce: nazev,
+            okres: okres,
+            starosta: starosta,
+            mistarosta: mistarosta
+          };
+          
+          // Uložení do localStorage jako dočasné řešení
+          localStorage.setItem('lukavice_settings', JSON.stringify(updateData));
+          
+          // Pokud je vybrán obrázek, uloží se jako data URL
+          if (logoFile) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              localStorage.setItem('lukavice_logo', e.target.result);
+              // Refresh stránky aby se zobrazilo nové logo
+              location.reload();
+            };
+            reader.readAsDataURL(logoFile);
+          } else {
+            alert('Nastavení uloženo');
+            modalManager.closeModal();
+          }
+        } catch (error) {
+          alert('Chyba při ukládání: ' + error.message);
+        }
       }, 'save');
     }
   </script>
@@ -328,6 +361,17 @@
     if (settingsBtnMobile) {
       settingsBtnMobile.addEventListener('click', openSettingsModal);
     }
+
+    // Načtení uloženého loga
+    window.addEventListener('load', () => {
+      const savedLogo = localStorage.getItem('lukavice_logo');
+      if (savedLogo) {
+        const logoImg = document.querySelector('.nav-logo-image');
+        if (logoImg) {
+          logoImg.src = savedLogo;
+        }
+      }
+    });
 
     // Hamburger menu
     const hamburger = document.getElementById('hamburger');
