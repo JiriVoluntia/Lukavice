@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nastavení - Obec Lukavice</title>
+  <title>Administrátor - Obec Lukavice</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <nav>
     <div class="nav-container">
-      <a href="admin-home.html" style="text-decoration: none; color: inherit;">
+      <a href="admin.html" style="text-decoration: none; color: inherit;">
         <div class="nav-logo">
           <img src="images/logo.png" alt="Logo" class="nav-logo-image">
           <div class="nav-logo-text">
@@ -19,7 +19,7 @@
         </div>
       </a>
       <div class="nav-buttons">
-        <a href="admin.html?section=proposals" class="nav-button">
+        <a href="admin.html?section=proposals" class="nav-button active">
           <img src="images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
           <span>Hlasování</span>
         </a>
@@ -61,41 +61,29 @@
   </nav>
 
   <main>
-    <h1 class="setup-title">Nastavte váš portál:</h1>
-    
-    <div class="setup-steps">
-      <div class="setup-step">
-        <div class="setup-step-number">Krok 1.</div>
-        <h2 class="setup-step-title">Obec</h2>
-        <p class="setup-step-description">Nastavte logo, název a ostatní důležitá data vaší obce</p>
-        <button class="setup-step-btn" onclick="window.location.href='admin.html?section=settings'">Nastavení</button>
-      </div>
-
-      <div class="setup-step">
-        <div class="setup-step-number">Krok 2.</div>
-        <h2 class="setup-step-title">Příslušnost</h2>
-        <p class="setup-step-description">Vytvořte jednotlivé strany, místní sdružení nebo místní organizace které jsou součástí vašeho zastupitelstva a přidejte jim jejich barvu</p>
-      </div>
-
-      <div class="setup-step">
-        <div class="setup-step-number">Krok 3.</div>
-        <h2 class="setup-step-title">Zastupitelé</h2>
-        <p class="setup-step-description">Přidejte zastupitele, upravte jejich biografii, přidejte profilovou fotografii, vyplňte jejich příslušnost a funkce</p>
-      </div>
-
-      <div class="setup-step">
-        <div class="setup-step-number">Krok 4.</div>
-        <h2 class="setup-step-title">Hlasování</h2>
-        <p class="setup-step-description">Vyplňte jednotlivá hlasování, přidejte detailní popis, datum uskutečnění a účast aktivních zastupitelů</p>
-      </div>
+    <div id="proposalsSection" class="admin-section active">
+      <h1 class="page-title">Administrace hlasování</h1>
+      <div id="proposalsContainer"></div>
     </div>
 
-    <div class="setup-help">
-      <a href="#" class="setup-help-link">Potřebuji pomoc.</a>
+    <div id="councillorsSection" class="admin-section">
+      <h1 class="page-title">Administrace zastupitelů</h1>
+      <div id="councillorsContainer"></div>
+    </div>
+
+    <div id="partiesSection" class="admin-section">
+      <h1 class="page-title">Administrace příslušnosti</h1>
+      <div id="partiesContainer"></div>
+    </div>
+
+    <div id="settingsSection" class="admin-section">
+      <h1 class="page-title">Nastavení</h1>
+      <div id="settingsContainer"></div>
     </div>
   </main>
 
   <script src="js/app.js"></script>
+  <script src="js/data-cache.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
@@ -123,40 +111,7 @@
       await signOut(auth);
       window.location.href = 'index.html';
     };
-
-    const settingsBtn = document.getElementById('settingsBtn');
-    const settingsBtnMobile = document.getElementById('settingsBtnMobile');
-    
-    if (settingsBtn) {
-      settingsBtn.addEventListener('click', () => {
-        window.location.href = 'admin.html?section=settings';
-      });
-    }
-    
-    if (settingsBtnMobile) {
-      settingsBtnMobile.addEventListener('click', () => {
-        window.location.href = 'admin.html?section=settings';
-      });
-    }
-
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const navMobile = document.getElementById('navMobile');
-    const navButtonsMobile = document.querySelectorAll('.nav-button-mobile');
-
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMobile.classList.toggle('active');
-      });
-    }
-
-    navButtonsMobile.forEach(button => {
-      button.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMobile.classList.remove('active');
-      });
-    });
   </script>
+  <script src="js/admin.js"></script>
 </body>
 </html>

@@ -193,8 +193,8 @@
 
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        // Přihlášení úspěšné, přesměrování na admin home
-        window.location.href = 'admin-home.html';
+        // Přihlášení úspěšné, přesměrování na admin
+        window.location.href = 'admin.html';
       } catch (error) {
         errorMessage.textContent = 'Nesprávný email nebo heslo';
         errorMessage.classList.add('show');
