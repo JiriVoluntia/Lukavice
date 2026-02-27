@@ -59,17 +59,129 @@
       <!-- Složení zastupitelstva se načte zde -->
     </div>
     
-    <h2 style="margin-top: 40px; margin-left: 20px;">Poslední hlasování</h2>
+    <h2 style="margin-top: 40px; margin-left: 0; font-size: 35px;">Poslední hlasování</h2>
     <div class="proposals-container" id="proposalsContainer">
       <!-- Poslední 3 hlasování se načtou zde -->
     </div>
   </main>
 
   <script src="js/app.js"></script>
-  <script src="js/councillors.js"></script>
-  <script src="js/proposals.js"></script>
   <script>
-    // Přepis init funkce pro hlavní stránku
+    // Funkce pro výpočet času od data
+    function getTimeAgo(dateString) {
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 0) return 'Dnes';
+      if (diffDays === 1) return 'Včera';
+      if (diffDays < 7) return `Před ${diffDays} dny`;
+      
+      const diffWeeks = Math.floor(diffDays / 7);
+      if (diffWeeks < 4) return `Před ${diffWeeks} týdnem${diffWeeks > 1 ? 'y' : ''}`;
+      
+      const diffMonths = Math.floor(diffDays / 30);
+      if (diffMonths < 12) return `Před ${diffMonths} měsícem${diffMonths > 1 ? 'i' : ''}`;
+      
+      const diffYears = Math.floor(diffDays / 365);
+      return `Před ${diffYears} rokem${diffYears > 1 ? 'y' : ''}`;
+    }
+
+    // Vytvoření HTML pro návrh
+    function createProposalHTML(proposal, councillors) {
+      const statusClass = proposal.vysledek === 'SCHVÁLENO' ? 'approved' : 'rejected';
+      const statusText = proposal.vysledek === 'SCHVÁLENO' ? 'Schváleno' : 'Zamítnuto';
+      const proposerName = councillors[proposal.navrhovatel] || 'Neznámý';
+      const timeAgo = getTimeAgo(proposal.datum);
+      
+      return `
+        <div class="proposal-box" onclick="window.location.href='proposal-detail.html?id=${proposal.id}'" style="cursor: pointer;">
+          <div class="proposal-header">
+            <div class="status-badge ${statusClass}">${statusText}</div>
+            <div class="date-info">
+              <span class="date-text">${timeAgo}</span>
+              <img src="images/icons/Datum.svg" alt="Datum" class="date-icon">
+            </div>
+          </div>
+          
+          <h2 class="proposal-title">${proposal.nazev}</h2>
+          
+          <div class="proposal-footer">
+            <div class="proposer-info">
+              <span class="proposer-label">Navrhl</span>
+              <a href="councillor.html?id=${proposal.navrhovatel}" class="proposer-name" onclick="event.stopPropagation()">${proposerName}</a>
+            </div>
+            <div class="voting-info">
+              <div class="voting-group">
+                <span class="voting-label">Pro</span>
+                <span class="voting-count pro">${proposal.pro.filter(id => id).length}</span>
+              </div>
+              <div class="voting-group">
+                <span class="voting-label">Proti</span>
+                <span class="voting-count against">${proposal.proti.filter(id => id).length}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Dynamické načtení zastupitelů
+    async function loadCouncillors() {
+      const councillors = {};
+      try {
+        const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
+        
+        for (const fileName of fileList) {
+          try {
+            const res = await fetch(`data/zastupitele/${fileName}.json`);
+            const data = await res.json();
+            councillors[data.id] = data;
+          } catch (e) {
+            console.warn(`Chyba při načítání ${fileName}`);
+          }
+        }
+      } catch (error) {
+        console.error('Chyba při načítání zastupitelů:', error);
+      }
+      return councillors;
+    }
+
+    // Dynamické načtení stran
+    async function loadParties() {
+      const parties = {};
+      try {
+        const fileList = await fetch('/api/list?dir=data/strany').then(r => r.json());
+        
+        for (const fileName of fileList) {
+          try {
+            const res = await fetch(`data/strany/${fileName}.json`);
+            const data = await res.json();
+            parties[data.id] = data;
+          } catch (e) {
+            console.warn(`Chyba při načítání strany ${fileName}`);
+          }
+        }
+      } catch (error) {
+        console.error('Chyba při načítání stran:', error);
+      }
+      return parties;
+    }
+
+    // Načtení funkcí
+    async function loadFunctions() {
+      try {
+        const res = await fetch('data/obecne-info.json');
+        const data = await res.json();
+        return data.funkce || [];
+      } catch (error) {
+        console.error('Chyba při načítání funkcí:', error);
+        return [];
+      }
+    }
+
+    // Inicializace hlavní stránky
     async function initHomepage() {
       const councillors = await loadCouncillors();
       const parties = await loadParties();
