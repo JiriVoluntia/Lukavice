@@ -1,5 +1,6 @@
 // Cache pro data s TTL (time to live)
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hodin
+const FIREBASE_DB = 'https://lukavice-288a6-default-rtdb.europe-west1.firebasedatabase.app';
 
 class DataCache {
   constructor() {
@@ -46,16 +47,13 @@ async function loadCouncillors() {
 
   const councillors = {};
   try {
-    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
+    const res = await fetch(`${FIREBASE_DB}/councillors.json`);
+    const data = await res.json();
     
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/zastupitele/${fileName}.json`);
-        const data = await res.json();
-        councillors[data.id] = data;
-      } catch (e) {
-        console.warn(`Chyba při načítání ${fileName}`);
-      }
+    if (data) {
+      Object.keys(data).forEach(key => {
+        councillors[data[key].id] = data[key];
+      });
     }
   } catch (error) {
     console.error('Chyba při načítání zastupitelů:', error);
@@ -72,16 +70,13 @@ async function loadParties() {
 
   const parties = {};
   try {
-    const fileList = await fetch('/api/list?dir=data/strany').then(r => r.json());
+    const res = await fetch(`${FIREBASE_DB}/parties.json`);
+    const data = await res.json();
     
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/strany/${fileName}.json`);
-        const data = await res.json();
-        parties[data.id] = data;
-      } catch (e) {
-        console.warn(`Chyba při načítání strany ${fileName}`);
-      }
+    if (data) {
+      Object.keys(data).forEach(key => {
+        parties[data[key].id] = data[key];
+      });
     }
   } catch (error) {
     console.error('Chyba při načítání stran:', error);
@@ -97,9 +92,9 @@ async function loadFunctions() {
   if (cached) return cached;
 
   try {
-    const res = await fetch('data/obecne-info.json');
+    const res = await fetch(`${FIREBASE_DB}/settings/functions.json`);
     const data = await res.json();
-    const functions = data.funkce || [];
+    const functions = data || [];
     cache.setCache('functions', functions);
     return functions;
   } catch (error) {
@@ -118,18 +113,13 @@ async function loadProposals() {
 
   const proposals = [];
   try {
-    const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
-    console.log('File list from API:', fileList);
+    const res = await fetch(`${FIREBASE_DB}/proposals.json`);
+    const data = await res.json();
     
-    for (const fileName of fileList) {
-      try {
-        const res = await fetch(`data/navrhy/${fileName}.json`);
-        const data = await res.json();
-        console.log(`Loaded proposal ${fileName}:`, data);
-        proposals.push(data);
-      } catch (e) {
-        console.error(`Chyba při načítání návrhu ${fileName}:`, e);
-      }
+    if (data) {
+      Object.keys(data).forEach(key => {
+        proposals.push(data[key]);
+      });
     }
   } catch (error) {
     console.error('Chyba při načítání návrhů:', error);
@@ -146,12 +136,12 @@ async function loadGeneralInfo() {
   if (cached) return cached;
 
   try {
-    const res = await fetch('data/obecne-info.json');
+    const res = await fetch(`${FIREBASE_DB}/settings/info.json`);
     const data = await res.json();
-    cache.setCache('general_info', data);
-    return data;
+    cache.setCache('general_info', { info: data });
+    return { info: data };
   } catch (error) {
     console.error('Chyba při načítání obecních informací:', error);
-    return {};
+    return { info: {} };
   }
 }

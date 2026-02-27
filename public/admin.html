@@ -299,25 +299,49 @@
             nazevObce: nazev,
             okres: okres,
             starosta: starosta,
-            mistarosta: mistarosta
+            mistarosta: mistarosta,
+            updatedAt: new Date().toISOString()
           };
           
-          // Uložení do localStorage jako dočasné řešení
-          localStorage.setItem('lukavice_settings', JSON.stringify(updateData));
+          // Uložení do Firebase Realtime Database
+          const response = await fetch('https://lukavice-288a6-default-rtdb.europe-west1.firebasedatabase.app/settings.json', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updateData)
+          });
           
-          // Pokud je vybrán obrázek, uloží se jako data URL
-          if (logoFile) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              localStorage.setItem('lukavice_logo', e.target.result);
-              // Refresh stránky aby se zobrazilo nové logo
-              location.reload();
-            };
-            reader.readAsDataURL(logoFile);
-          } else {
-            alert('Nastavení uloženo');
-            modalManager.closeModal();
+          if (!response.ok) {
+            throw new Error('Chyba při ukládání do Firebase');
           }
+          
+          // Pokud je vybrán obrázek, nahraje se do Firebase Storage
+          if (logoFile) {
+            const formData = new FormData();
+            formData.append('file', logoFile);
+            
+            const uploadResponse = await fetch('https://lukavice-288a6-default-rtdb.europe-west1.firebasedatabase.app/logo', {
+              method: 'POST',
+              body: formData
+            });
+            
+            if (!uploadResponse.ok) {
+              console.warn('Varování: Logo se nenahrálo, ale nastavení bylo uloženo');
+            }
+          }
+          
+          alert('Nastavení uloženo');
+          modalManager.closeModal();
+          
+          // Refresh cache
+          cache.clearCache('general_info');
+          
+          // Reload stránky aby se zobrazily nové údaje
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+          
         } catch (error) {
           alert('Chyba při ukládání: ' + error.message);
         }
