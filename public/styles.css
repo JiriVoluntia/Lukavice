@@ -227,9 +227,6 @@ main {
   margin: 0 auto;
   padding: 140px 10px 0 10px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
 }
 
 /* PRVKY */
@@ -711,6 +708,7 @@ main {
   color: #000000;
   text-align: center;
   height: fit-content;
+  margin-bottom: 30px;
 }
 
 .setup-steps {
@@ -718,6 +716,7 @@ main {
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   justify-items: center;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 1200px) {
