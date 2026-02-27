@@ -254,22 +254,28 @@ async function openSettingsModal() {
   // Řádek 1: Logo a Název + Okres
   const row1 = modalManager.addRow();
   
-  // Logo upload
+  // Logo upload - vlevo
   const logoField = document.createElement('div');
   logoField.className = 'form-field';
+  logoField.style.display = 'flex';
+  logoField.style.flexDirection = 'column';
+  logoField.style.gap = '8px';
+  
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
   logoLabel.textContent = 'Logo';
+  
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
   logoInput.className = 'form-field-input';
   logoInput.id = 'logo-upload';
   logoInput.accept = 'image/*';
+  
   logoField.appendChild(logoLabel);
   logoField.appendChild(logoInput);
   row1.appendChild(logoField);
   
-  // Název a Okres
+  // Název a Okres - vpravo
   const rightCol = document.createElement('div');
   rightCol.style.display = 'flex';
   rightCol.style.flexDirection = 'column';
@@ -277,23 +283,34 @@ async function openSettingsModal() {
   
   const nazevField = document.createElement('div');
   nazevField.className = 'form-field';
+  nazevField.style.display = 'flex';
+  nazevField.style.flexDirection = 'column';
+  nazevField.style.gap = '8px';
+  
   const nazevLabel = document.createElement('label');
   nazevLabel.className = 'form-field-label';
   nazevLabel.textContent = 'Název obce';
+  
   const nazevInput = document.createElement('input');
   nazevInput.type = 'text';
   nazevInput.className = 'form-field-input';
   nazevInput.id = 'nazev-obce';
   nazevInput.value = generalInfo.info?.nazevObce || '';
+  
   nazevField.appendChild(nazevLabel);
   nazevField.appendChild(nazevInput);
   rightCol.appendChild(nazevField);
   
   const okresField = document.createElement('div');
   okresField.className = 'form-field';
+  okresField.style.display = 'flex';
+  okresField.style.flexDirection = 'column';
+  okresField.style.gap = '8px';
+  
   const okresLabel = document.createElement('label');
   okresLabel.className = 'form-field-label';
   okresLabel.textContent = 'Okres';
+  
   const okresSelect = document.createElement('select');
   okresSelect.className = 'form-field-select';
   okresSelect.id = 'okres';
@@ -321,9 +338,14 @@ async function openSettingsModal() {
   
   const starostaField = document.createElement('div');
   starostaField.className = 'form-field';
+  starostaField.style.display = 'flex';
+  starostaField.style.flexDirection = 'column';
+  starostaField.style.gap = '8px';
+  
   const starostaLabel = document.createElement('label');
   starostaLabel.className = 'form-field-label';
   starostaLabel.textContent = 'Starosta';
+  
   const starostaSelect = document.createElement('select');
   starostaSelect.className = 'form-field-select';
   starostaSelect.id = 'starosta';
@@ -348,9 +370,14 @@ async function openSettingsModal() {
   
   const mistarostaField = document.createElement('div');
   mistarostaField.className = 'form-field';
+  mistarostaField.style.display = 'flex';
+  mistarostaField.style.flexDirection = 'column';
+  mistarostaField.style.gap = '8px';
+  
   const mistarostaLabel = document.createElement('label');
   mistarostaLabel.className = 'form-field-label';
   mistarostaLabel.textContent = '1. Místostarosta';
+  
   const mistarostaSelect = document.createElement('select');
   mistarostaSelect.className = 'form-field-select';
   mistarostaSelect.id = 'mistarosta';
