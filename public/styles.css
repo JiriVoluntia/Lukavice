@@ -716,6 +716,7 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
   margin-bottom: 40px;
+  justify-items: center;
 }
 
 .setup-step {
@@ -726,6 +727,8 @@ main {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  max-width: 280px;
+  text-align: center;
 }
 
 .setup-step-number {
@@ -759,7 +762,7 @@ main {
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 400;
-  align-self: flex-start;
+  align-self: center;
   margin-top: 10px;
 }
 
