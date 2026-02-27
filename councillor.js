@@ -1,7 +1,7 @@
 // Dynamické načtení zastupitele
 async function loadCouncillor(councillorId) {
   try {
-    const fileList = await fetch('/api/list/data/zastupitele').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
     
     for (const fileName of fileList) {
       try {
@@ -23,7 +23,7 @@ async function loadCouncillor(councillorId) {
 // Dynamické načtení strany
 async function loadParty(partyId) {
   try {
-    const fileList = await fetch('/api/list/data/strany').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/strany').then(r => r.json());
     
     for (const fileName of fileList) {
       const res = await fetch(`data/strany/${fileName}.json`);
@@ -41,7 +41,7 @@ async function loadParty(partyId) {
 // Dynamické načtení všech návrhů
 async function loadAllProposals() {
   try {
-    const fileList = await fetch('/api/list/data/navrhy').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
     
     const proposals = [];
     for (const fileName of fileList) {

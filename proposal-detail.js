@@ -31,7 +31,7 @@ function truncateText(text, maxLength = 380) {
 async function loadCouncillors() {
   const councillors = {};
   try {
-    const fileList = await fetch('/api/list/data/zastupitele').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
     
     for (const fileName of fileList) {
       try {
@@ -51,7 +51,7 @@ async function loadCouncillors() {
 // Dynamické načtení návrhů
 async function loadProposal(proposalId) {
   try {
-    const fileList = await fetch('/api/list/data/navrhy').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
     
     for (const fileName of fileList) {
       try {

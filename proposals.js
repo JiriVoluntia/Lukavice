@@ -23,7 +23,7 @@ function getTimeAgo(dateString) {
 async function loadCouncillors() {
   const councillors = {};
   try {
-    const fileList = await fetch('/api/list/data/zastupitele').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
     
     for (const fileName of fileList) {
       try {
@@ -44,7 +44,7 @@ async function loadCouncillors() {
 async function loadProposals() {
   const proposals = [];
   try {
-    const fileList = await fetch('/api/list/data/navrhy').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
     
     for (const fileName of fileList) {
       try {

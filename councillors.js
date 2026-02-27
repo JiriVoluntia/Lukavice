@@ -2,7 +2,7 @@
 async function loadCouncillors() {
   const councillors = {};
   try {
-    const fileList = await fetch('/api/list/data/zastupitele').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
     
     for (const fileName of fileList) {
       try {
@@ -23,7 +23,7 @@ async function loadCouncillors() {
 async function loadParties() {
   const parties = {};
   try {
-    const fileList = await fetch('/api/list/data/strany').then(r => r.json());
+    const fileList = await fetch('/api/list?dir=data/strany').then(r => r.json());
     
     for (const fileName of fileList) {
       try {
