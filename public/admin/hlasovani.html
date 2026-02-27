@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hlasování - Administrátor</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="../admin.html" style="text-decoration: none; color: inherit;">
+        <div class="nav-logo">
+          <img src="../images/logo.png" alt="Logo" class="nav-logo-image">
+          <div class="nav-logo-text">
+            <div class="nav-logo-title" id="navLogoTitle">Obec Lukavice</div>
+            <div class="nav-logo-subtitle" id="navLogoSubtitle">Administrátor</div>
+          </div>
+        </div>
+      </a>
+      <div class="nav-buttons">
+        <a href="hlasovani.html" class="nav-button active">
+          <img src="../images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
+          <span>Hlasování</span>
+        </a>
+        <a href="zastupitele.html" class="nav-button">
+          <img src="../images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
+          <span>Zastupitelé</span>
+        </a>
+        <a href="prislusnost.html" class="nav-button">
+          <img src="../images/icons/zastupitele.svg" alt="Příslušnost" class="nav-icon">
+          <span>Příslušnost</span>
+        </a>
+      </div>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="hlasovani.html" class="nav-button-mobile">
+        <img src="../images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
+        <span>Hlasování</span>
+      </a>
+      <a href="zastupitele.html" class="nav-button-mobile">
+        <img src="../images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
+        <span>Zastupitelé</span>
+      </a>
+      <a href="prislusnost.html" class="nav-button-mobile">
+        <img src="../images/icons/zastupitele.svg" alt="Příslušnost" class="nav-icon">
+        <span>Příslušnost</span>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="admin-header">
+      <div class="admin-breadcrumb">
+        <span class="breadcrumb-link">Administrátor</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>Hlasování</span>
+      </div>
+      <button class="admin-add-btn" onclick="openAddProposalModal()">+ Přidat hlasování</button>
+    </div>
+    
+    <h1 class="admin-title">Hlasování</h1>
+    <p class="admin-description">Níže můžete upravit aktivitu, jméno, profilový obrázek, přidat nebo smazat zastupitele.</p>
+    
+    <div class="admin-search">
+      <input type="text" id="proposalsSearch" placeholder="Vyhledávání..." class="admin-search-input">
+    </div>
+    
+    <div id="proposalsContainer" class="admin-table-container"></div>
+  </main>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/data-cache.js"></script>
+  <script src="../js/modal-utils.js"></script>
+  <script src="../js/admin.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqdn1j6SMhLg0g0Jy0t1zsT_i9PtJIFcM",
+      authDomain: "lukavice-288a6.firebaseapp.com",
+      projectId: "lukavice-288a6",
+      storageBucket: "lukavice-288a6.firebasestorage.app",
+      messagingSenderId: "662004004122",
+      appId: "1:662004004122:web:7deab3bb97700870bca8a3",
+      measurementId: "G-GJYP8YRMQV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = '../login.html';
+      }
+    });
+
+    window.logout = async () => {
+      await signOut(auth);
+      window.location.href = '../index.html';
+    };
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navMobile = document.getElementById('navMobile');
+    const navButtonsMobile = document.querySelectorAll('.nav-button-mobile');
+
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMobile.classList.toggle('active');
+      });
+    }
+
+    navButtonsMobile.forEach(button => {
+      button.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMobile.classList.remove('active');
+      });
+    });
+
+    // Načtení dat
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProposalsAdmin();
+    });
+  </script>
+</body>
+</html>

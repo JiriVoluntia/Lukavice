@@ -19,21 +19,18 @@
         </div>
       </a>
       <div class="nav-buttons">
-        <a href="admin.html?section=proposals" class="nav-button active">
+        <a href="admin/hlasovani.html" class="nav-button">
           <img src="images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
           <span>Hlasování</span>
         </a>
-        <a href="admin.html?section=councillors" class="nav-button">
+        <a href="admin/zastupitele.html" class="nav-button">
           <img src="images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
           <span>Zastupitelé</span>
         </a>
-        <a href="admin.html?section=parties" class="nav-button">
+        <a href="admin/prislusnost.html" class="nav-button">
           <img src="images/icons/zastupitele.svg" alt="Příslušnost" class="nav-icon">
           <span>Příslušnost</span>
         </a>
-        <button class="nav-button settings-button" id="settingsBtn">
-          <img src="images/icons/settings.svg" alt="Nastavení" class="nav-icon">
-        </button>
       </div>
       <button class="hamburger" id="hamburger">
         <span></span>
@@ -42,88 +39,53 @@
       </button>
     </div>
     <div class="nav-mobile" id="navMobile">
-      <a href="admin.html?section=proposals" class="nav-button-mobile">
+      <a href="admin/hlasovani.html" class="nav-button-mobile">
         <img src="images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
         <span>Hlasování</span>
       </a>
-      <a href="admin.html?section=councillors" class="nav-button-mobile">
+      <a href="admin/zastupitele.html" class="nav-button-mobile">
         <img src="images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
         <span>Zastupitelé</span>
       </a>
-      <a href="admin.html?section=parties" class="nav-button-mobile">
+      <a href="admin/prislusnost.html" class="nav-button-mobile">
         <img src="images/icons/zastupitele.svg" alt="Příslušnost" class="nav-icon">
         <span>Příslušnost</span>
       </a>
-      <button class="nav-button-mobile settings-button" id="settingsBtnMobile">
-        <img src="images/icons/settings.svg" alt="Nastavení" class="nav-icon">
-      </button>
     </div>
   </nav>
 
   <main>
-    <div id="proposalsSection" class="admin-section active">
-      <div class="admin-header">
-        <div class="admin-breadcrumb">
-          <span class="breadcrumb-link">Administrátor</span>
-          <span class="breadcrumb-separator">/</span>
-          <span>Hlasování</span>
-        </div>
-        <button class="admin-add-btn" onclick="openAddProposalModal()">+ Přidat hlasování</button>
+    <h1 class="setup-title">Nastavte váš portál:</h1>
+    
+    <div class="setup-steps">
+      <div class="setup-step">
+        <div class="setup-step-number">Krok 1.</div>
+        <h2 class="setup-step-title">Obec</h2>
+        <p class="setup-step-description">Nastavte logo, název a ostatní důležitá data vaší obce</p>
+        <button class="setup-step-btn" onclick="openSettingsModal()">Nastavení</button>
       </div>
-      
-      <h1 class="admin-title">Hlasování</h1>
-      <p class="admin-description">Níže můžete upravit aktivitu, jméno, profilový obrázek, přidat nebo smazat zastupitele.</p>
-      
-      <div class="admin-search">
-        <input type="text" id="proposalsSearch" placeholder="Vyhledávání..." class="admin-search-input">
+
+      <div class="setup-step">
+        <div class="setup-step-number">Krok 2.</div>
+        <h2 class="setup-step-title">Příslušnost</h2>
+        <p class="setup-step-description">Vytvořte jednotlivé strany, místní sdružení nebo místní organizace které jsou součástí vašeho zastupitelstva a přidejte jim jejich barvu</p>
       </div>
-      
-      <div id="proposalsContainer" class="admin-table-container"></div>
+
+      <div class="setup-step">
+        <div class="setup-step-number">Krok 3.</div>
+        <h2 class="setup-step-title">Zastupitelé</h2>
+        <p class="setup-step-description">Přidejte zastupitele, upravte jejich biografii, přidejte profilovou fotografii, vyplňte jejich příslušnost a funkce</p>
+      </div>
+
+      <div class="setup-step">
+        <div class="setup-step-number">Krok 4.</div>
+        <h2 class="setup-step-title">Hlasování</h2>
+        <p class="setup-step-description">Vyplňte jednotlivá hlasování, přidejte detailní popis, datum uskutečnění a účast aktivních zastupitelů</p>
+      </div>
     </div>
 
-    <div id="councillorsSection" class="admin-section">
-      <div class="admin-header">
-        <div class="admin-breadcrumb">
-          <span class="breadcrumb-link">Administrátor</span>
-          <span class="breadcrumb-separator">/</span>
-          <span>Zastupitelé</span>
-        </div>
-        <button class="admin-add-btn" onclick="openAddCouncillorModal()">+ Přidat zastupitele</button>
-      </div>
-      
-      <h1 class="admin-title">Zastupitelé obce:</h1>
-      <p class="admin-description">Níže můžete upravit aktivitu, jméno, profilový obrázek, přidat nebo smazat zastupitele.</p>
-      
-      <div class="admin-search">
-        <input type="text" id="councillorsSearch" placeholder="Vyhledávání..." class="admin-search-input">
-      </div>
-      
-      <div id="councillorsContainer" class="admin-table-container"></div>
-    </div>
-
-    <div id="partiesSection" class="admin-section">
-      <div class="admin-header">
-        <div class="admin-breadcrumb">
-          <span class="breadcrumb-link">Administrátor</span>
-          <span class="breadcrumb-separator">/</span>
-          <span>Příslušnost</span>
-        </div>
-        <button class="admin-add-btn" onclick="openAddPartyModal()">+ Přidat příslušnost</button>
-      </div>
-      
-      <h1 class="admin-title">Příslušnost:</h1>
-      <p class="admin-description">Níže můžete upravit aktivitu, jméno, profilový obrázek, přidat nebo smazat zastupitele.</p>
-      
-      <div class="admin-search">
-        <input type="text" id="partiesSearch" placeholder="Vyhledávání..." class="admin-search-input">
-      </div>
-      
-      <div id="partiesContainer" class="admin-table-container"></div>
-    </div>
-
-    <div id="settingsSection" class="admin-section">
-      <h1 class="page-title">Nastavení</h1>
-      <div id="settingsContainer"></div>
+    <div class="setup-help">
+      <a href="#" class="setup-help-link">Potřebuji pomoc.</a>
     </div>
   </main>
 
