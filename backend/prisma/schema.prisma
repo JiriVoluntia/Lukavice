@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Municipality {
+  id        String   @id @default(cuid())
+  name      String
+  district  String
+  web       String?
+  logoUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parties    Party[]
+  councillors Councillor[]
+  proposals  Proposal[]
+  users      User[]
+
+  @@map("municipalities")
+}
+
+model Party {
+  id             String   @id @default(cuid())
+  municipalityId String
+  municipality   Municipality @relation(fields: [municipalityId], references: [id], onDelete: Cascade)
+  name           String
+  color          String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  councillors Councillor[]
+
+  @@map("parties")
+}
+
+model Councillor {
+  id             String   @id @default(cuid())
+  municipalityId String
+  municipality   Municipality @relation(fields: [municipalityId], references: [id], onDelete: Cascade)
+  name           String
+  partyId        String?
+  party          Party?   @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  function       String?
+  bio            String?
+  imageUrl       String?
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  votes Vote[]
+
+  @@map("councillors")
+}
+
+model Proposal {
+  id             String   @id @default(cuid())
+  municipalityId String
+  municipality   Municipality @relation(fields: [municipalityId], references: [id], onDelete: Cascade)
+  title          String
+  description    String
+  date           DateTime
+  result         String   @default("PENDING")
+  proposerId     String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  votes Vote[]
+
+  @@map("proposals")
+}
+
+model Vote {
+  id          String   @id @default(cuid())
+  proposalId  String
+  proposal    Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  councillorId String
+  councillor  Councillor @relation(fields: [councillorId], references: [id], onDelete: Cascade)
+  vote        String   @default("ABSTAIN")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([proposalId, councillorId])
+  @@map("votes")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  firebaseUid    String   @unique
+  municipalityId String
+  municipality   Municipality @relation(fields: [municipalityId], references: [id], onDelete: Cascade)
+  role           String   @default("viewer")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("users")
+}

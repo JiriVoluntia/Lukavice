@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply font-sans;
+}
+
+html, body {
+  @apply bg-light text-dark;
+}
+
+a {
+  @apply text-primary no-underline hover:underline;
+}
