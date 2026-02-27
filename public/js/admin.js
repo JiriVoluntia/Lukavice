@@ -263,12 +263,18 @@ async function openSettingsModal() {
   logoField.style.flexDirection = 'column';
   logoField.style.gap = '8px';
   logoField.style.flexShrink = '0';
-  logoField.style.aspectRatio = '1';
-  logoField.style.height = '100%';
+  logoField.style.minWidth = 'fit-content';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
   logoLabel.textContent = 'Logo';
+  logoLabel.style.marginBottom = '0';
+  
+  const logoInputWrapper = document.createElement('div');
+  logoInputWrapper.style.display = 'flex';
+  logoInputWrapper.style.flex = '1';
+  logoInputWrapper.style.aspectRatio = '1';
+  logoInputWrapper.style.minHeight = '0';
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
@@ -283,11 +289,11 @@ async function openSettingsModal() {
   logoInput.style.alignItems = 'center';
   logoInput.style.justifyContent = 'center';
   logoInput.style.position = 'relative';
-  logoInput.style.flexShrink = '0';
   logoInput.style.flex = '1';
   
   logoField.appendChild(logoLabel);
-  logoField.appendChild(logoInput);
+  logoInputWrapper.appendChild(logoInput);
+  logoField.appendChild(logoInputWrapper);
   row1.appendChild(logoField);
   
   // Název a Okres - vpravo (width fill, height fit-content)
