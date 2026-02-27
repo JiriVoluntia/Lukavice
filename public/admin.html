@@ -68,7 +68,6 @@
         <div class="setup-step-number">Krok 1.</div>
         <h2 class="setup-step-title">Obec</h2>
         <p class="setup-step-description">Nastavte logo, název a ostatní důležitá data vaší obce</p>
-        <button class="setup-step-btn" onclick="openSettingsModal()">Nastavení</button>
       </div>
 
       <div class="setup-step">
@@ -99,140 +98,6 @@
   <script src="js/data-cache.js"></script>
   <script src="js/modal-utils.js"></script>
   <script src="js/admin.js"></script>
-  <script>
-    // Otevření popupu pro nastavení obce
-    async function openSettingsModal() {
-      const generalInfo = await loadGeneralInfo();
-      const councillors = await loadCouncillors();
-      
-      const modal = modalManager.createModal('Upravit nastavení obce');
-      
-      // Řádek 1: Logo a Název + Okres
-      const row1 = modalManager.addRow();
-      
-      // Logo upload
-      const logoField = document.createElement('div');
-      logoField.className = 'form-field';
-      const logoLabel = document.createElement('label');
-      logoLabel.className = 'form-field-label';
-      logoLabel.textContent = 'Logo';
-      const logoInput = document.createElement('input');
-      logoInput.type = 'file';
-      logoInput.className = 'form-field-input';
-      logoInput.id = 'logo-upload';
-      logoInput.accept = 'image/*';
-      logoField.appendChild(logoLabel);
-      logoField.appendChild(logoInput);
-      row1.appendChild(logoField);
-      
-      // Název a Okres
-      const rightCol = document.createElement('div');
-      rightCol.style.display = 'flex';
-      rightCol.style.flexDirection = 'column';
-      rightCol.style.gap = '20px';
-      
-      const nazevField = document.createElement('div');
-      nazevField.className = 'form-field';
-      const nazevLabel = document.createElement('label');
-      nazevLabel.className = 'form-field-label';
-      nazevLabel.textContent = 'Název obce';
-      const nazevInput = document.createElement('input');
-      nazevInput.type = 'text';
-      nazevInput.className = 'form-field-input';
-      nazevInput.id = 'nazev-obce';
-      nazevInput.value = generalInfo.info?.nazevObce || '';
-      nazevField.appendChild(nazevLabel);
-      nazevField.appendChild(nazevInput);
-      rightCol.appendChild(nazevField);
-      
-      const okresField = document.createElement('div');
-      okresField.className = 'form-field';
-      const okresLabel = document.createElement('label');
-      okresLabel.className = 'form-field-label';
-      okresLabel.textContent = 'Okres';
-      const okresSelect = document.createElement('select');
-      okresSelect.className = 'form-field-select';
-      okresSelect.id = 'okres';
-      
-      // Přidání možností okresů
-      const okresy = ['Benešov', 'Beroun', 'Kladno', 'Kolín', 'Kutná Hora', 'Mělník', 'Mladá Boleslav', 'Nymburk', 'Praha-východ', 'Praha-západ', 'Příbram', 'Rakovník', 'Pardubický kraj'];
-      okresy.forEach(okres => {
-        const option = document.createElement('option');
-        option.value = okres;
-        option.textContent = okres;
-        if (okres === generalInfo.info?.okres) {
-          option.selected = true;
-        }
-        okresSelect.appendChild(option);
-      });
-      
-      okresField.appendChild(okresLabel);
-      okresField.appendChild(okresSelect);
-      rightCol.appendChild(okresField);
-      
-      row1.appendChild(rightCol);
-      
-      // Řádek 2: Starosta a 1. Místostarosta
-      const row2 = modalManager.addRow();
-      
-      const starostaField = document.createElement('div');
-      starostaField.className = 'form-field';
-      const starostaLabel = document.createElement('label');
-      starostaLabel.className = 'form-field-label';
-      starostaLabel.textContent = 'Starosta';
-      const starostaSelect = document.createElement('select');
-      starostaSelect.className = 'form-field-select';
-      starostaSelect.id = 'starosta';
-      
-      const emptyOption = document.createElement('option');
-      emptyOption.value = '';
-      emptyOption.textContent = 'Vyberte zastupitele';
-      starostaSelect.appendChild(emptyOption);
-      
-      Object.values(councillors).forEach(councillor => {
-        if (councillor.aktivni) {
-          const option = document.createElement('option');
-          option.value = councillor.id;
-          option.textContent = councillor.jmeno;
-          starostaSelect.appendChild(option);
-        }
-      });
-      
-      starostaField.appendChild(starostaLabel);
-      starostaField.appendChild(starostaSelect);
-      row2.appendChild(starostaField);
-      
-      const mistarostaField = document.createElement('div');
-      mistarostaField.className = 'form-field';
-      const mistarostaLabel = document.createElement('label');
-      mistarostaLabel.className = 'form-field-label';
-      mistarostaLabel.textContent = '1. Místostarosta';
-      const mistarostaSelect = document.createElement('select');
-      mistarostaSelect.className = 'form-field-select';
-      mistarostaSelect.id = 'mistarosta';
-      
-      mistarostaSelect.appendChild(emptyOption.cloneNode(true));
-      
-      Object.values(councillors).forEach(councillor => {
-        if (councillor.aktivni) {
-          const option = document.createElement('option');
-          option.value = councillor.id;
-          option.textContent = councillor.jmeno;
-          mistarostaSelect.appendChild(option);
-        }
-      });
-      
-      mistarostaField.appendChild(mistarostaLabel);
-      mistarostaField.appendChild(mistarostaSelect);
-      row2.appendChild(mistarostaField);
-      
-      // Tlačítka
-      modalManager.addButton('Uložit', () => {
-        alert('Nastavení obce uloženo');
-        modalManager.closeModal();
-      }, 'save');
-    }
-  </script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
@@ -260,21 +125,6 @@
       await signOut(auth);
       window.location.href = 'index.html';
     };
-
-    const settingsBtn = document.getElementById('settingsBtn');
-    const settingsBtnMobile = document.getElementById('settingsBtnMobile');
-    
-    if (settingsBtn) {
-      settingsBtn.addEventListener('click', () => {
-        openSettingsModal();
-      });
-    }
-    
-    if (settingsBtnMobile) {
-      settingsBtnMobile.addEventListener('click', () => {
-        openSettingsModal();
-      });
-    }
 
     // Hamburger menu
     const hamburger = document.getElementById('hamburger');
