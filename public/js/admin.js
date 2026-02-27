@@ -92,25 +92,35 @@ async function loadProposalsAdmin() {
   
   proposals.sort((a, b) => new Date(b.datum) - new Date(a.datum));
   
-  let html = '<div style="display: flex; flex-direction: column; gap: 15px;">';
+  let html = '';
+  let currentDate = '';
+  
   proposals.forEach(proposal => {
-    const statusClass = proposal.vysledek === 'SCHVÁLENO' ? 'approved' : 'rejected';
+    const proposalDate = proposal.datum;
+    
+    // Přidej datum jako nadpis
+    if (proposalDate !== currentDate) {
+      if (currentDate !== '') {
+        html += '<div class="admin-section-divider"></div>';
+      }
+      html += `<div class="admin-section-label">${proposalDate}:</div>`;
+      currentDate = proposalDate;
+    }
+    
+    const statusClass = proposal.vysledek === 'SCHVÁLENO' ? 'admin-status-approved' : 'admin-status-rejected';
     const statusText = proposal.vysledek === 'SCHVÁLENO' ? 'Schváleno' : 'Zamítnuto';
     
     html += `
-      <div class="proposal-box" style="display: flex; justify-content: space-between; align-items: center;">
-        <div style="flex: 1;">
-          <h3 class="proposal-title">${proposal.nazev}</h3>
-          <div class="status-badge ${statusClass}">${statusText}</div>
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <button class="admin-btn admin-btn-edit" onclick="editProposal('${proposal.id}')">Upravit</button>
-          <button class="admin-btn admin-btn-delete" onclick="deleteProposal('${proposal.id}')">Smazat</button>
-        </div>
+      <div class="admin-table-row">
+        <div></div>
+        <div>${proposal.nazev}</div>
+        <div><span class="admin-status-badge ${statusClass}">${statusText}</span></div>
+        <div></div>
+        <div></div>
+        <button class="admin-edit-btn" onclick="editProposal('${proposal.id}')">✎</button>
       </div>
     `;
   });
-  html += '</div>';
   
   container.innerHTML = html;
 }
@@ -126,25 +136,56 @@ async function loadCouncillorsAdmin() {
     return;
   }
   
-  let html = '<div style="display: flex; flex-direction: column; gap: 15px;">';
-  councillorsList.forEach(councillor => {
-    const status = councillor.aktivni ? 'Aktivní' : 'Neaktivní';
-    const statusClass = councillor.aktivni ? 'approved' : 'rejected';
-    
-    html += `
-      <div class="proposal-box" style="display: flex; justify-content: space-between; align-items: center;">
-        <div style="flex: 1;">
-          <h3 class="proposal-title">${councillor.jmeno}</h3>
-          <div class="status-badge ${statusClass}">${status}</div>
+  // Oddělení aktivních a neaktivních
+  const active = councillorsList.filter(c => c.aktivni);
+  const inactive = councillorsList.filter(c => !c.aktivni);
+  
+  let html = '';
+  
+  // Aktivní
+  if (active.length > 0) {
+    html += '<div class="admin-section-label">Vyhledat zastupitele</div>';
+    active.forEach(councillor => {
+      const initials = councillor.jmeno.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
+      const avatar = councillor.profilovyObrazek 
+        ? `<img src="${councillor.profilovyObrazek}" alt="${councillor.jmeno}" class="admin-avatar">`
+        : `<div class="admin-avatar-placeholder">${initials}</div>`;
+      
+      html += `
+        <div class="admin-table-row">
+          ${avatar}
+          <div>${councillor.jmeno}</div>
+          <div>${councillor.strana || 'Nezávislý'}</div>
+          <div>${councillor.funkce || '-'}</div>
+          <div>Před 6 dny</div>
+          <button class="admin-edit-btn" onclick="editCouncillor('${councillor.id}')">✎</button>
         </div>
-        <div style="display: flex; gap: 10px;">
-          <button class="admin-btn admin-btn-edit" onclick="editCouncillor('${councillor.id}')">Upravit</button>
-          <button class="admin-btn admin-btn-delete" onclick="deleteCouncillor('${councillor.id}')">Smazat</button>
+      `;
+    });
+  }
+  
+  // Neaktivní
+  if (inactive.length > 0) {
+    html += '<div class="admin-section-divider"></div>';
+    html += '<div class="admin-section-label">Neaktivní:</div>';
+    inactive.forEach(councillor => {
+      const initials = councillor.jmeno.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
+      const avatar = councillor.profilovyObrazek 
+        ? `<img src="${councillor.profilovyObrazek}" alt="${councillor.jmeno}" class="admin-avatar">`
+        : `<div class="admin-avatar-placeholder">${initials}</div>`;
+      
+      html += `
+        <div class="admin-table-row">
+          ${avatar}
+          <div>${councillor.jmeno}</div>
+          <div>${councillor.strana || 'Nezávislý'}</div>
+          <div>${councillor.funkce || '-'}</div>
+          <div>Před 6 dny</div>
+          <button class="admin-edit-btn" onclick="editCouncillor('${councillor.id}')">✎</button>
         </div>
-      </div>
-    `;
-  });
-  html += '</div>';
+      `;
+    });
+  }
   
   container.innerHTML = html;
 }
@@ -160,25 +201,24 @@ async function loadPartiesAdmin() {
     return;
   }
   
-  let html = '<div style="display: flex; flex-direction: column; gap: 15px;">';
+  let html = '';
   partiesList.forEach(party => {
     html += `
-      <div class="proposal-box" style="display: flex; justify-content: space-between; align-items: center;">
-        <div style="flex: 1;">
-          <h3 class="proposal-title">${party.nazev}</h3>
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${party.barva};"></div>
-            <span style="color: rgba(0, 0, 0, 0.6);">${party.barva}</span>
+      <div class="admin-table-row">
+        <div></div>
+        <div>${party.nazev}</div>
+        <div>
+          <div class="admin-color-badge">
+            <div class="admin-color-box" style="background-color: ${party.barva};"></div>
+            <span>${party.barva}</span>
           </div>
         </div>
-        <div style="display: flex; gap: 10px;">
-          <button class="admin-btn admin-btn-edit" onclick="editParty('${party.id}')">Upravit</button>
-          <button class="admin-btn admin-btn-delete" onclick="deleteParty('${party.id}')">Smazat</button>
-        </div>
+        <div></div>
+        <div></div>
+        <button class="admin-edit-btn" onclick="editParty('${party.id}')">✎</button>
       </div>
     `;
   });
-  html += '</div>';
   
   container.innerHTML = html;
 }

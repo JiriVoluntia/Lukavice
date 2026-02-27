@@ -1305,3 +1305,179 @@ main {
   color: #333;
   font-weight: 500;
 }
+
+
+/* ADMIN PANEL */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-breadcrumb {
+  font-size: 14px;
+  color: #0059FF;
+}
+
+.breadcrumb-separator {
+  margin: 0 8px;
+  color: #000000;
+}
+
+.admin-add-btn {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.admin-add-btn:hover {
+  color: #000000;
+}
+
+.admin-title {
+  font-size: 35px;
+  color: #000000;
+  margin: 0 0 10px 0;
+  font-weight: 400;
+}
+
+.admin-description {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+}
+
+.admin-search {
+  margin-bottom: 20px;
+}
+
+.admin-search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.admin-search-input:focus {
+  outline: none;
+  border-color: #0059FF;
+  box-shadow: 0 0 0 3px rgba(0, 89, 255, 0.1);
+}
+
+.admin-table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-table-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 150px 150px 150px 50px;
+  gap: 20px;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.admin-table-row.header {
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+}
+
+.admin-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e0e0e0;
+}
+
+.admin-avatar-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.admin-status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-status-approved {
+  background-color: rgba(77, 255, 0, 0.2);
+  color: #2d9600;
+}
+
+.admin-status-rejected {
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #cc0000;
+}
+
+.admin-color-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-color-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.admin-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  color: #0059FF;
+  transition: color 0.3s ease;
+}
+
+.admin-edit-btn:hover {
+  color: #0047cc;
+}
+
+.admin-section-divider {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.admin-section-label {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.admin-section-label:first-child {
+  margin-top: 0;
+}

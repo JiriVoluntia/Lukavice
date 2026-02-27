@@ -62,18 +62,63 @@
 
   <main>
     <div id="proposalsSection" class="admin-section active">
-      <h1 class="page-title">Administrace hlasování</h1>
-      <div id="proposalsContainer"></div>
+      <div class="admin-header">
+        <div class="admin-breadcrumb">
+          <span class="breadcrumb-link">Administrátor</span>
+          <span class="breadcrumb-separator">/</span>
+          <span>Hlasování</span>
+        </div>
+        <button class="admin-add-btn" onclick="openAddProposalModal()">+ Přidat hlasování</button>
+      </div>
+      
+      <h1 class="admin-title">Hlasování</h1>
+      <p class="admin-description">Níže můžete upravit aktivitu, jméno, profilový obrázek, přidat nebo smazat zastupitele.</p>
+      
+      <div class="admin-search">
+        <input type="text" id="proposalsSearch" placeholder="Vyhledávání..." class="admin-search-input">
+      </div>
+      
+      <div id="proposalsContainer" class="admin-table-container"></div>
     </div>
 
     <div id="councillorsSection" class="admin-section">
-      <h1 class="page-title">Administrace zastupitelů</h1>
-      <div id="councillorsContainer"></div>
+      <div class="admin-header">
+        <div class="admin-breadcrumb">
+          <span class="breadcrumb-link">Administrátor</span>
+          <span class="breadcrumb-separator">/</span>
+          <span>Zastupitelé</span>
+        </div>
+        <button class="admin-add-btn" onclick="openAddCouncillorModal()">+ Přidat zastupitele</button>
+      </div>
+      
+      <h1 class="admin-title">Zastupitelé obce:</h1>
+      <p class="admin-description">Níže můžete upravit aktivitu, jméno, profilový obrázek, přidat nebo smazat zastupitele.</p>
+      
+      <div class="admin-search">
+        <input type="text" id="councillorsSearch" placeholder="Vyhledávání..." class="admin-search-input">
+      </div>
+      
+      <div id="councillorsContainer" class="admin-table-container"></div>
     </div>
 
     <div id="partiesSection" class="admin-section">
-      <h1 class="page-title">Administrace příslušnosti</h1>
-      <div id="partiesContainer"></div>
+      <div class="admin-header">
+        <div class="admin-breadcrumb">
+          <span class="breadcrumb-link">Administrátor</span>
+          <span class="breadcrumb-separator">/</span>
+          <span>Příslušnost</span>
+        </div>
+        <button class="admin-add-btn" onclick="openAddPartyModal()">+ Přidat příslušnost</button>
+      </div>
+      
+      <h1 class="admin-title">Příslušnost:</h1>
+      <p class="admin-description">Níže můžete upravit aktivitu, jméno, profilový obrázek, přidat nebo smazat zastupitele.</p>
+      
+      <div class="admin-search">
+        <input type="text" id="partiesSearch" placeholder="Vyhledávání..." class="admin-search-input">
+      </div>
+      
+      <div id="partiesContainer" class="admin-table-container"></div>
     </div>
 
     <div id="settingsSection" class="admin-section">
