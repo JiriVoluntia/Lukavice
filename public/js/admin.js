@@ -254,14 +254,17 @@ async function openSettingsModal() {
   // Řádek 1: Logo a Název + Okres
   const row1 = modalManager.addRow();
   row1.style.gap = '20px';
-  row1.style.alignItems = 'flex-start';
+  row1.style.alignItems = 'stretch';
+  row1.style.display = 'flex';
   
-  // Logo upload - vlevo
+  // Logo upload - vlevo (aspect ratio 1:1, height fill)
   const logoField = document.createElement('div');
   logoField.style.display = 'flex';
   logoField.style.flexDirection = 'column';
   logoField.style.gap = '8px';
   logoField.style.flexShrink = '0';
+  logoField.style.aspectRatio = '1';
+  logoField.style.height = '100%';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
@@ -272,25 +275,28 @@ async function openSettingsModal() {
   logoInput.className = 'form-field-input';
   logoInput.id = 'logo-upload';
   logoInput.accept = 'image/*';
-  logoInput.style.width = '120px';
-  logoInput.style.height = '120px';
+  logoInput.style.width = '100%';
+  logoInput.style.height = '100%';
   logoInput.style.padding = '0';
   logoInput.style.cursor = 'pointer';
   logoInput.style.display = 'flex';
   logoInput.style.alignItems = 'center';
   logoInput.style.justifyContent = 'center';
   logoInput.style.position = 'relative';
+  logoInput.style.flexShrink = '0';
+  logoInput.style.flex = '1';
   
   logoField.appendChild(logoLabel);
   logoField.appendChild(logoInput);
   row1.appendChild(logoField);
   
-  // Název a Okres - vpravo
+  // Název a Okres - vpravo (width fill, height fit-content)
   const rightCol = document.createElement('div');
   rightCol.style.display = 'flex';
   rightCol.style.flexDirection = 'column';
   rightCol.style.gap = '16px';
   rightCol.style.flex = '1';
+  rightCol.style.height = 'fit-content';
   
   // Název obce
   const nazevLabelWrapper = document.createElement('div');
@@ -307,6 +313,7 @@ async function openSettingsModal() {
   nazevInput.className = 'form-field-input';
   nazevInput.id = 'nazev-obce';
   nazevInput.value = generalInfo.info?.nazevObce || '';
+  nazevInput.style.width = '100%';
   
   nazevLabelWrapper.appendChild(nazevLabel);
   nazevLabelWrapper.appendChild(nazevInput);
@@ -325,6 +332,7 @@ async function openSettingsModal() {
   const okresSelect = document.createElement('select');
   okresSelect.className = 'form-field-select';
   okresSelect.id = 'okres';
+  okresSelect.style.width = '100%';
   
   // Přidání možností okresů
   const okresy = ['Benešov', 'Beroun', 'Kladno', 'Kolín', 'Kutná Hora', 'Mělník', 'Mladá Boleslav', 'Nymburk', 'Praha-východ', 'Praha-západ', 'Příbram', 'Rakovník', 'Pardubický kraj'];
