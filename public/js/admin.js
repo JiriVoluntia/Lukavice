@@ -262,19 +262,22 @@ async function openSettingsModal() {
   logoField.style.display = 'flex';
   logoField.style.flexDirection = 'column';
   logoField.style.gap = '4px';
-  logoField.style.flexShrink = '0';
+  logoField.style.flex = '0 0 auto';
   logoField.style.minWidth = 'fit-content';
+  logoField.style.height = '100%';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
   logoLabel.textContent = 'Logo';
   logoLabel.style.marginBottom = '0';
+  logoLabel.style.flexShrink = '0';
   
   const logoInputWrapper = document.createElement('div');
   logoInputWrapper.style.display = 'flex';
   logoInputWrapper.style.flex = '1';
   logoInputWrapper.style.aspectRatio = '1';
   logoInputWrapper.style.minHeight = '0';
+  logoInputWrapper.style.minWidth = '0';
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
