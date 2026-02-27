@@ -253,13 +253,15 @@ async function openSettingsModal() {
   
   // Řádek 1: Logo a Název + Okres
   const row1 = modalManager.addRow();
+  row1.style.gap = '20px';
+  row1.style.alignItems = 'flex-start';
   
   // Logo upload - vlevo
   const logoField = document.createElement('div');
-  logoField.className = 'form-field';
   logoField.style.display = 'flex';
   logoField.style.flexDirection = 'column';
   logoField.style.gap = '8px';
+  logoField.style.flexShrink = '0';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
@@ -273,6 +275,11 @@ async function openSettingsModal() {
   logoInput.style.width = '120px';
   logoInput.style.height = '120px';
   logoInput.style.padding = '0';
+  logoInput.style.cursor = 'pointer';
+  logoInput.style.display = 'flex';
+  logoInput.style.alignItems = 'center';
+  logoInput.style.justifyContent = 'center';
+  logoInput.style.position = 'relative';
   
   logoField.appendChild(logoLabel);
   logoField.appendChild(logoInput);
@@ -282,13 +289,14 @@ async function openSettingsModal() {
   const rightCol = document.createElement('div');
   rightCol.style.display = 'flex';
   rightCol.style.flexDirection = 'column';
-  rightCol.style.gap = '20px';
+  rightCol.style.gap = '16px';
+  rightCol.style.flex = '1';
   
   // Název obce
   const nazevLabelWrapper = document.createElement('div');
   nazevLabelWrapper.style.display = 'flex';
   nazevLabelWrapper.style.flexDirection = 'column';
-  nazevLabelWrapper.style.gap = '8px';
+  nazevLabelWrapper.style.gap = '4px';
   
   const nazevLabel = document.createElement('label');
   nazevLabel.className = 'form-field-label';
@@ -308,7 +316,7 @@ async function openSettingsModal() {
   const okresLabelWrapper = document.createElement('div');
   okresLabelWrapper.style.display = 'flex';
   okresLabelWrapper.style.flexDirection = 'column';
-  okresLabelWrapper.style.gap = '8px';
+  okresLabelWrapper.style.gap = '4px';
   
   const okresLabel = document.createElement('label');
   okresLabel.className = 'form-field-label';

@@ -956,6 +956,20 @@ main {
   width: 120px;
   height: 120px;
   padding: 0;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+  border: 2px dashed rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo-upload::before {
+  content: '✏️';
+  font-size: 32px;
+  position: absolute;
+  pointer-events: none;
 }
 
 .form-field-select {
