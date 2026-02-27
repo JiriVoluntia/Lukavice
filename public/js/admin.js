@@ -261,7 +261,7 @@ async function openSettingsModal() {
   const logoField = document.createElement('div');
   logoField.style.display = 'flex';
   logoField.style.flexDirection = 'column';
-  logoField.style.gap = '8px';
+  logoField.style.gap = '4px';
   logoField.style.flexShrink = '0';
   logoField.style.minWidth = 'fit-content';
   
@@ -303,7 +303,6 @@ async function openSettingsModal() {
   rightCol.style.gap = '16px';
   rightCol.style.flex = '1';
   rightCol.style.width = '100%';
-  rightCol.style.height = '100%';
   
   // Název obce
   const nazevLabelWrapper = document.createElement('div');
