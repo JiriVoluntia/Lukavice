@@ -305,6 +305,7 @@ async function openSettingsModal() {
   rightCol.style.gap = '16px';
   rightCol.style.flex = '1';
   rightCol.style.width = '100%';
+  rightCol.style.minWidth = '0';
   
   // Název obce
   const nazevLabelWrapper = document.createElement('div');
