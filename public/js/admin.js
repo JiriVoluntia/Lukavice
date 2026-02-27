@@ -245,6 +245,7 @@ function saveSettings() {
 
 // Otevření popupu pro nastavení obce
 async function openSettingsModal() {
+  console.log('openSettingsModal called');
   const generalInfo = await loadGeneralInfo();
   const councillors = await loadCouncillors();
   
