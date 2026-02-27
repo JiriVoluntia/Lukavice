@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
@@ -14,12 +14,12 @@ app.use(cors());
 app.use(express.json());
 
 // Health check
-app.get('/health', (req, res) => {
+app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });
 });
 
 // Municipalities
-app.get('/api/municipalities/:id', async (req, res) => {
+app.get('/api/municipalities/:id', async (req: Request, res: Response) => {
   try {
     const municipality = await prisma.municipality.findUnique({
       where: { id: req.params.id },
@@ -36,7 +36,7 @@ app.get('/api/municipalities/:id', async (req, res) => {
 });
 
 // Councillors
-app.get('/api/municipalities/:municipalityId/councillors', async (req, res) => {
+app.get('/api/municipalities/:municipalityId/councillors', async (req: Request, res: Response) => {
   try {
     const councillors = await prisma.councillor.findMany({
       where: { municipalityId: req.params.municipalityId },
@@ -48,7 +48,7 @@ app.get('/api/municipalities/:municipalityId/councillors', async (req, res) => {
   }
 });
 
-app.get('/api/councillors/:id', async (req, res) => {
+app.get('/api/councillors/:id', async (req: Request, res: Response) => {
   try {
     const councillor = await prisma.councillor.findUnique({
       where: { id: req.params.id },
@@ -61,7 +61,7 @@ app.get('/api/councillors/:id', async (req, res) => {
 });
 
 // Parties
-app.get('/api/municipalities/:municipalityId/parties', async (req, res) => {
+app.get('/api/municipalities/:municipalityId/parties', async (req: Request, res: Response) => {
   try {
     const parties = await prisma.party.findMany({
       where: { municipalityId: req.params.municipalityId },
@@ -73,7 +73,7 @@ app.get('/api/municipalities/:municipalityId/parties', async (req, res) => {
 });
 
 // Proposals
-app.get('/api/municipalities/:municipalityId/proposals', async (req, res) => {
+app.get('/api/municipalities/:municipalityId/proposals', async (req: Request, res: Response) => {
   try {
     const proposals = await prisma.proposal.findMany({
       where: { municipalityId: req.params.municipalityId },
@@ -86,7 +86,7 @@ app.get('/api/municipalities/:municipalityId/proposals', async (req, res) => {
   }
 });
 
-app.get('/api/proposals/:id', async (req, res) => {
+app.get('/api/proposals/:id', async (req: Request, res: Response) => {
   try {
     const proposal = await prisma.proposal.findUnique({
       where: { id: req.params.id },
@@ -98,56 +98,14 @@ app.get('/api/proposals/:id', async (req, res) => {
   }
 });
 
-// Admin endpoints
-app.post('/api/admin/councillors', async (req, res) => {
-  try {
-    const { municipalityId, name, partyId, function: func, bio, imageUrl, active } = req.body;
-    const councillor = await prisma.councillor.create({
-      data: {
-        municipalityId,
-        name,
-        partyId,
-        function: func,
-        bio,
-        imageUrl,
-        active,
-      },
-    });
-    res.json(councillor);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to create councillor' });
-  }
-});
-
-app.put('/api/admin/councillors/:id', async (req, res) => {
-  try {
-    const { name, partyId, function: func, bio, imageUrl, active } = req.body;
-    const councillor = await prisma.councillor.update({
-      where: { id: req.params.id },
-      data: { name, partyId, function: func, bio, imageUrl, active },
-    });
-    res.json(councillor);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update councillor' });
-  }
-});
-
-app.delete('/api/admin/councillors/:id', async (req, res) => {
-  try {
-    await prisma.councillor.delete({ where: { id: req.params.id } });
-    res.json({ success: true });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to delete councillor' });
-  }
-});
-
 // Start server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
   await prisma.$disconnect();
+  server.close();
   process.exit(0);
 });
