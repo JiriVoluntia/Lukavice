@@ -35,6 +35,8 @@ async function loadProposal(proposalId) {
 
 // Vytvoření HTML pro avatar
 function createAvatarHTML(councillor) {
+  if (!councillor) return '';
+  
   const profileImage = councillor.profilovyObrazek;
   const initials = councillor.jmeno.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
   
@@ -54,15 +56,21 @@ async function init() {
   const params = new URLSearchParams(window.location.search);
   const proposalId = params.get('id');
   
+  console.log('Loading proposal with ID:', proposalId);
+  
   if (!proposalId) {
     window.location.href = 'proposals.html';
     return;
   }
   
   const councillors = await loadCouncillors();
+  console.log('Loaded councillors:', councillors);
+  
   const proposal = await loadProposal(proposalId);
+  console.log('Loaded proposal:', proposal);
   
   if (!proposal) {
+    console.error('Proposal not found, redirecting to proposals.html');
     window.location.href = 'proposals.html';
     return;
   }
