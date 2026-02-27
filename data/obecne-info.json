@@ -1,8 +1,9 @@
 {
   "_comment_info": "=== ZÁKLADNÍ INFORMACE ===",
   "info": {
-    "nazevObce": "Město Novákov",
-    "logo": "images/logo-novakovsk.png",
+    "nazevObce": "Obec Lukavice",
+    "okres": "Pardubický kraj",
+    "logo": "images/logo.png",
     "web": "https://www.obeclukavice.cz/"
   },
 
@@ -11,22 +12,22 @@
     {
       "id": "function-1",
       "nazev": "Starosta",
-      "zastupitel": "councillor-1"
+      "zastupitel": "ilona-severova"
     },
     {
       "id": "function-2",
       "nazev": "Místostarosta",
-      "zastupitel": "councillor-2"
+      "zastupitel": "oldrich-hubalek"
     },
     {
       "id": "function-3",
       "nazev": "Místostarosta",
-      "zastupitel": "councillor-5"
+      "zastupitel": "leopold-hotmar"
     },
     {
       "id": "function-4",
       "nazev": "Tajemník",
-      "zastupitel": "councillor-7"
+      "zastupitel": "roman-safar"
     }
   ]
 }

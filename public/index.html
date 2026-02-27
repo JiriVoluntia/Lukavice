@@ -129,7 +129,7 @@
     }
 
     // Dynamické načtení zastupitelů
-    async function loadCouncillors() {
+    async function loadCouncillorsLocal() {
       const councillors = {};
       try {
         const fileList = await fetch('/api/list?dir=data/zastupitele').then(r => r.json());
@@ -150,7 +150,7 @@
     }
 
     // Dynamické načtení stran
-    async function loadParties() {
+    async function loadPartiesLocal() {
       const parties = {};
       try {
         const fileList = await fetch('/api/list?dir=data/strany').then(r => r.json());
@@ -171,7 +171,7 @@
     }
 
     // Načtení funkcí
-    async function loadFunctions() {
+    async function loadFunctionsLocal() {
       try {
         const res = await fetch('data/obecne-info.json');
         const data = await res.json();
@@ -184,9 +184,9 @@
 
     // Inicializace hlavní stránky
     async function initHomepage() {
-      const councillors = await loadCouncillors();
-      const parties = await loadParties();
-      const functions = await loadFunctions();
+      const councillors = await loadCouncillorsLocal();
+      const parties = await loadPartiesLocal();
+      const functions = await loadFunctionsLocal();
       
       // Vytvoření mapy funkcí
       const functionMap = {};

@@ -20,9 +20,17 @@ class ModalManager {
     const modal = document.createElement('div');
     modal.className = 'modal';
     
+    // Header wrapper
+    const headerWrapper = document.createElement('div');
+    headerWrapper.style.display = 'flex';
+    headerWrapper.style.justifyContent = 'space-between';
+    headerWrapper.style.alignItems = 'flex-start';
+    headerWrapper.style.marginBottom = '20px';
+    
     // Header
     const header = document.createElement('div');
     header.className = 'modal-header';
+    header.style.flex = '1';
     
     const titleEl = document.createElement('h2');
     titleEl.className = 'modal-title';
@@ -36,22 +44,23 @@ class ModalManager {
       header.appendChild(subtitleEl);
     }
     
-    modal.appendChild(header);
+    headerWrapper.appendChild(header);
+    
+    // Buttons container (v headeru vpravo)
+    const buttons = document.createElement('div');
+    buttons.className = 'modal-buttons';
+    buttons.id = 'modalButtons';
+    buttons.style.flexDirection = 'column';
+    buttons.style.gap = '10px';
+    headerWrapper.appendChild(buttons);
+    
+    modal.appendChild(headerWrapper);
     
     // Content container
     const content = document.createElement('div');
     content.className = 'modal-content';
     content.id = 'modalContent';
     modal.appendChild(content);
-    
-    // Buttons container (bude v headeru)
-    const buttons = document.createElement('div');
-    buttons.className = 'modal-buttons';
-    buttons.id = 'modalButtons';
-    buttons.style.position = 'absolute';
-    buttons.style.top = '24px';
-    buttons.style.right = '24px';
-    header.appendChild(buttons);
     
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
