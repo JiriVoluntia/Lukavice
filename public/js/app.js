@@ -52,7 +52,7 @@ async function openWeb(event) {
 // Načtení a nastavení loga s textem
 async function loadLogoText() {
   // Pokud jsme na admin stránce, nenastavuj text
-  if (window.location.pathname.includes('admin.html')) {
+  if (window.location.pathname.includes('admin.html') || window.location.pathname.includes('admin-home.html')) {
     return;
   }
   
