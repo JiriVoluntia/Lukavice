@@ -64,6 +64,35 @@ nav {
 .nav-logo {
   height: 60px;
   width: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-image {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-logo-title {
+  font-size: 28px;
+  color: #000000;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.nav-logo-subtitle {
+  font-size: 18px;
+  color: #000000;
+  font-weight: 400;
+  line-height: 1;
 }
 
 .nav-buttons {

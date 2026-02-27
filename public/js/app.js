@@ -48,3 +48,26 @@ async function openWeb(event) {
     console.error('Chyba:', error);
   }
 }
+
+// Načtení a nastavení loga s textem
+async function loadLogoText() {
+  try {
+    const response = await fetch('data/obecne-info.json');
+    const data = await response.json();
+    
+    const titleEl = document.getElementById('navLogoTitle');
+    const subtitleEl = document.getElementById('navLogoSubtitle');
+    
+    if (titleEl && data.info.nazevObce) {
+      titleEl.textContent = data.info.nazevObce;
+    }
+    
+    if (subtitleEl && data.info.okres) {
+      subtitleEl.textContent = data.info.okres;
+    }
+  } catch (error) {
+    console.error('Chyba při načítání loga:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadLogoText);

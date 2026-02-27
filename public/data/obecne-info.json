@@ -1,8 +1,9 @@
 {
   "_comment_info": "=== ZÁKLADNÍ INFORMACE ===",
   "info": {
-    "nazevObce": "Město Novákov",
-    "logo": "images/logo-novakovsk.png",
+    "nazevObce": "Obec Lukavice",
+    "okres": "Pardubický kraj",
+    "logo": "images/logo.png",
     "web": "https://www.obeclukavice.cz/"
   },
 
