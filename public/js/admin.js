@@ -244,6 +244,7 @@ function saveSettings() {
 }
 
 // Otevření popupu pro nastavení obce
+// Vercel cache bust: v1
 async function openSettingsModal() {
   const generalInfo = await loadGeneralInfo();
   const councillors = await loadCouncillors();
