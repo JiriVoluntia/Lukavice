@@ -254,7 +254,7 @@ async function openSettingsModal() {
   // Řádek 1: Logo a Název + Okres
   const row1 = modalManager.addRow();
   row1.style.gap = '20px';
-  row1.style.alignItems = 'stretch';
+  row1.style.alignItems = 'flex-start';
   row1.style.display = 'flex';
   
   // Logo upload - vlevo (aspect ratio 1:1, height fill)
@@ -262,9 +262,8 @@ async function openSettingsModal() {
   logoField.style.display = 'flex';
   logoField.style.flexDirection = 'column';
   logoField.style.gap = '4px';
-  logoField.style.flex = '0 0 auto';
+  logoField.style.flexShrink = '0';
   logoField.style.minWidth = 'fit-content';
-  logoField.style.height = '100%';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
@@ -360,6 +359,12 @@ async function openSettingsModal() {
   rightCol.appendChild(okresLabelWrapper);
   
   row1.appendChild(rightCol);
+  
+  // Nastavení výšky logoField na výšku rightCol
+  setTimeout(() => {
+    const rightColHeight = rightCol.offsetHeight;
+    logoField.style.height = rightColHeight + 'px';
+  }, 0);
   
   // Řádek 2: Starosta a 1. Místostarosta
   const row2 = modalManager.addRow();
