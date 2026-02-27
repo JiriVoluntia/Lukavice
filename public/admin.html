@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrátor - Obec Lukavice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="admin.html" style="text-decoration: none; color: inherit;">
+        <div class="nav-logo">
+          <img src="images/logo.png" alt="Logo" class="nav-logo-image">
+          <div class="nav-logo-text">
+            <div class="nav-logo-title" id="navLogoTitle">Obec Lukavice</div>
+            <div class="nav-logo-subtitle" id="navLogoSubtitle">Administrátor</div>
+          </div>
+        </div>
+      </a>
+      <div class="nav-buttons">
+        <a href="admin.html?section=proposals" class="nav-button active">
+          <img src="images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
+          <span>Hlasování</span>
+        </a>
+        <a href="admin.html?section=councillors" class="nav-button">
+          <img src="images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
+          <span>Zastupitelé</span>
+        </a>
+        <a href="admin.html?section=parties" class="nav-button">
+          <img src="images/icons/zastupitele.svg" alt="Příslušnost" class="nav-icon">
+          <span>Příslušnost</span>
+        </a>
+        <button class="nav-button settings-button" id="settingsBtn">
+          <img src="images/icons/settings.svg" alt="Nastavení" class="nav-icon">
+        </button>
+      </div>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="admin.html?section=proposals" class="nav-button-mobile">
+        <img src="images/icons/hlasovani.svg" alt="Hlasování" class="nav-icon">
+        <span>Hlasování</span>
+      </a>
+      <a href="admin.html?section=councillors" class="nav-button-mobile">
+        <img src="images/icons/zastupitele.svg" alt="Zastupitelé" class="nav-icon">
+        <span>Zastupitelé</span>
+      </a>
+      <a href="admin.html?section=parties" class="nav-button-mobile">
+        <img src="images/icons/zastupitele.svg" alt="Příslušnost" class="nav-icon">
+        <span>Příslušnost</span>
+      </a>
+      <button class="nav-button-mobile settings-button" id="settingsBtnMobile">
+        <img src="images/icons/settings.svg" alt="Nastavení" class="nav-icon">
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <div id="proposalsSection" class="admin-section active">
+      <h1 class="page-title">Administrace hlasování</h1>
+      <div id="proposalsContainer"></div>
+    </div>
+
+    <div id="councillorsSection" class="admin-section">
+      <h1 class="page-title">Administrace zastupitelů</h1>
+      <div id="councillorsContainer"></div>
+    </div>
+
+    <div id="partiesSection" class="admin-section">
+      <h1 class="page-title">Administrace příslušnosti</h1>
+      <div id="partiesContainer"></div>
+    </div>
+
+    <div id="settingsSection" class="admin-section">
+      <h1 class="page-title">Nastavení</h1>
+      <div id="settingsContainer"></div>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/data-cache.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
