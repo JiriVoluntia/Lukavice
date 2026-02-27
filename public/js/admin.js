@@ -60,6 +60,25 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSettings();
 });
 
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const navButtonsMobile = document.querySelectorAll('.nav-button-mobile');
+
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMobile.classList.toggle('active');
+  });
+}
+
+navButtonsMobile.forEach(button => {
+  button.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMobile.classList.remove('active');
+  });
+});
+
 // Načtení návrhů pro administraci
 async function loadProposalsAdmin() {
   const proposals = await loadProposals();
@@ -183,6 +202,7 @@ async function loadSettings() {
         <input type="text" id="settingWeb" value="${generalInfo.info?.web || ''}" class="form-input">
       </div>
       <button class="admin-btn admin-btn-save" onclick="saveSettings()">Uložit nastavení</button>
+      <button class="admin-btn admin-btn-delete" onclick="logout()" style="margin-top: 10px;">Odhlásit se</button>
     </div>
   `;
 }

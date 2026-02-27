@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Přihlášení - Obec Lukavice</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #FAFBFA;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .login-logo {
+      width: 80px;
+      height: 80px;
+    }
+
+    .login-title {
+      font-size: 28px;
+      color: #000000;
+      text-align: center;
+      font-weight: 400;
+    }
+
+    .login-subtitle {
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.6);
+      text-align: center;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 16px;
+      color: #000000;
+      font-weight: 400;
+    }
+
+    .form-input {
+      padding: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: 'Manrope', sans-serif;
+      color: #000000;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #0059FF;
+      box-shadow: 0 0 0 3px rgba(0, 89, 255, 0.1);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #3B6629;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+
+    .login-btn:hover {
+      background-color: #2d5020;
+    }
+
+    .login-btn:disabled {
+      background-color: rgba(0, 0, 0, 0.2);
+      cursor: not-allowed;
+    }
+
+    .error-message {
+      color: #ff4444;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: center;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: #0059FF;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <img src="images/logo.png" alt="Logo" class="login-logo">
+      <h1 class="login-title">Administrátor</h1>
+      <p class="login-subtitle">Přihlášení do administračního panelu</p>
+    </div>
+
+    <div class="error-message" id="errorMessage"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-input" placeholder="váš email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Heslo</label>
+        <input type="password" id="password" class="form-input" placeholder="vaše heslo" required>
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">Přihlásit se</button>
+    </form>
+
+    <div class="back-link">
+      <a href="index.html">Zpět na hlavní stránku</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqdn1j6SMhLg0g0Jy0t1zsT_i9PtJIFcM",
+      authDomain: "lukavice-288a6.firebaseapp.com",
+      projectId: "lukavice-288a6",
+      storageBucket: "lukavice-288a6.firebasestorage.app",
+      messagingSenderId: "662004004122",
+      appId: "1:662004004122:web:7deab3bb97700870bca8a3",
+      measurementId: "G-GJYP8YRMQV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginBtn = document.getElementById('loginBtn');
+    const errorMessage = document.getElementById('errorMessage');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = emailInput.value;
+      const password = passwordInput.value;
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Přihlašuji...';
+      errorMessage.classList.remove('show');
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // Přihlášení úspěšné, přesměrování na admin panel
+        window.location.href = 'admin.html';
+      } catch (error) {
+        errorMessage.textContent = 'Nesprávný email nebo heslo';
+        errorMessage.classList.add('show');
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Přihlásit se';
+      }
+    });
+  </script>
+</body>
+</html>
