@@ -296,7 +296,8 @@ async function openSettingsModal() {
   rightCol.style.flexDirection = 'column';
   rightCol.style.gap = '16px';
   rightCol.style.flex = '1';
-  rightCol.style.height = 'fit-content';
+  rightCol.style.width = '100%';
+  rightCol.style.height = '100%';
   
   // Název obce
   const nazevLabelWrapper = document.createElement('div');

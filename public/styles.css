@@ -818,8 +818,8 @@ main {
   background-color: #ffffff;
   border-radius: 20px;
   padding: 24px;
-  max-width: 800px;
-  width: 90%;
+  max-width: fit-content;
+  width: auto;
   max-height: 90vh;
   overflow-y: auto;
   display: flex;
@@ -1053,6 +1053,7 @@ main {
   display: flex;
   gap: 20px;
   align-items: stretch;
+  width: 100%;
 }
 
 .modal-row.full {
