@@ -281,20 +281,32 @@ async function openSettingsModal() {
   logoInputWrapper.style.minHeight = '120px';
   logoInputWrapper.style.alignItems = 'center';
   logoInputWrapper.style.justifyContent = 'center';
+  logoInputWrapper.style.background = 'linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%)';
+  logoInputWrapper.style.border = '2px dashed rgba(0, 0, 0, 0.2)';
+  logoInputWrapper.style.borderRadius = '10px';
+  logoInputWrapper.style.cursor = 'pointer';
+  logoInputWrapper.style.position = 'relative';
+  logoInputWrapper.style.overflow = 'hidden';
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
-  logoInput.className = 'form-field-input';
   logoInput.id = 'logo-upload';
   logoInput.accept = 'image/*';
   logoInput.style.width = '100%';
   logoInput.style.height = '100%';
   logoInput.style.padding = '0';
   logoInput.style.cursor = 'pointer';
-  logoInput.style.display = 'flex';
-  logoInput.style.alignItems = 'center';
-  logoInput.style.justifyContent = 'center';
-  logoInput.style.position = 'relative';
+  logoInput.style.position = 'absolute';
+  logoInput.style.opacity = '0';
+  
+  // Přidám emoji jako vizuální indikátor
+  const logoPlaceholder = document.createElement('div');
+  logoPlaceholder.style.fontSize = '32px';
+  logoPlaceholder.style.pointerEvents = 'none';
+  logoPlaceholder.textContent = '✏️';
+  
+  logoInputWrapper.appendChild(logoInput);
+  logoInputWrapper.appendChild(logoPlaceholder);
   
   logoField.appendChild(logoLabel);
   logoInputWrapper.appendChild(logoInput);
@@ -367,8 +379,7 @@ async function openSettingsModal() {
   
   // Řádek 2: Starosta a 1. Místostarosta
   const row2 = modalManager.addRow();
-  row2.style.display = 'grid';
-  row2.style.gridTemplateColumns = '1fr 1fr';
+  row2.style.display = 'flex';
   row2.style.gap = '20px';
   row2.style.width = '100%';
   
@@ -377,6 +388,7 @@ async function openSettingsModal() {
   starostaLabelWrapper.style.display = 'flex';
   starostaLabelWrapper.style.flexDirection = 'column';
   starostaLabelWrapper.style.gap = '4px';
+  starostaLabelWrapper.style.flex = '1';
   starostaLabelWrapper.style.width = '100%';
   
   const starostaLabel = document.createElement('label');
@@ -411,6 +423,7 @@ async function openSettingsModal() {
   mistarostaLabelWrapper.style.display = 'flex';
   mistarostaLabelWrapper.style.flexDirection = 'column';
   mistarostaLabelWrapper.style.gap = '4px';
+  mistarostaLabelWrapper.style.flex = '1';
   mistarostaLabelWrapper.style.width = '100%';
   
   const mistarostaLabel = document.createElement('label');
