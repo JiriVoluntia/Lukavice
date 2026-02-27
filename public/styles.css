@@ -798,7 +798,7 @@ main {
 
 /* MODAL/POPUP SYSTEM */
 .modal-overlay {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
@@ -825,6 +825,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .modal-header {

@@ -3,12 +3,18 @@
 class ModalManager {
   constructor() {
     this.currentModal = null;
+    this.overlay = null;
   }
 
   createModal(title, subtitle = '') {
+    // Zavření předchozího modálu
+    if (this.currentModal) {
+      this.closeModal();
+    }
+    
     // Vytvoření overlay
     const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
+    overlay.className = 'modal-overlay active';
     
     // Vytvoření modálu
     const modal = document.createElement('div');
