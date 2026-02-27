@@ -51,6 +51,11 @@ async function openWeb(event) {
 
 // Načtení a nastavení loga s textem
 async function loadLogoText() {
+  // Pokud jsme na admin stránce, nenastavuj text
+  if (window.location.pathname.includes('admin.html')) {
+    return;
+  }
+  
   try {
     const response = await fetch('data/obecne-info.json');
     const data = await response.json();
