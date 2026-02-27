@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: lukavice-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: postgresql://lukavice_db_user:O0ypfCv6WBSfsK86brHRlM2S4BnjIjPi@dpg-d6gsc1p5pdvs73d8mf5g-a.frankfurt-postgres.render.com/lukavice_db
