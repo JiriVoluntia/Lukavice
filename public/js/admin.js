@@ -245,89 +245,74 @@ function saveSettings() {
 
 // Otevření popupu pro nastavení obce
 async function openSettingsModal() {
-  console.log('openSettingsModal called');
   const generalInfo = await loadGeneralInfo();
   const councillors = await loadCouncillors();
   
   const modal = modalManager.createModal('Upravit nastavení obce');
   
-  // Řádek 1: Logo a Název + Okres
-  const row1 = modalManager.addRow();
-  row1.style.gap = '20px';
-  row1.style.alignItems = 'flex-start';
+  // Řádek 1: Logo vlevo, Název obce + Okres vpravo
+  const row1 = document.createElement('div');
   row1.style.display = 'flex';
+  row1.style.gap = '20px';
   row1.style.width = '100%';
   
-  // Logo upload - vlevo (120x120 square)
-  const logoField = document.createElement('div');
-  logoField.style.display = 'flex';
-  logoField.style.flexDirection = 'column';
-  logoField.style.gap = '4px';
-  logoField.style.flexShrink = '0';
-  logoField.style.width = 'auto';
+  // Logo - čtverec 120x120
+  const logoContainer = document.createElement('div');
+  logoContainer.style.display = 'flex';
+  logoContainer.style.flexDirection = 'column';
+  logoContainer.style.gap = '4px';
+  logoContainer.style.flexShrink = '0';
   
   const logoLabel = document.createElement('label');
   logoLabel.className = 'form-field-label';
   logoLabel.textContent = 'Logo';
-  logoLabel.style.marginBottom = '0';
-  logoLabel.style.flexShrink = '0';
   
-  const logoInputWrapper = document.createElement('div');
-  logoInputWrapper.style.display = 'flex';
-  logoInputWrapper.style.width = '120px';
-  logoInputWrapper.style.height = '120px';
-  logoInputWrapper.style.flexShrink = '0';
-  logoInputWrapper.style.minWidth = '120px';
-  logoInputWrapper.style.minHeight = '120px';
-  logoInputWrapper.style.alignItems = 'center';
-  logoInputWrapper.style.justifyContent = 'center';
-  logoInputWrapper.style.background = 'linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%)';
-  logoInputWrapper.style.border = '2px dashed rgba(0, 0, 0, 0.2)';
-  logoInputWrapper.style.borderRadius = '10px';
-  logoInputWrapper.style.cursor = 'pointer';
-  logoInputWrapper.style.position = 'relative';
-  logoInputWrapper.style.overflow = 'hidden';
+  const logoBox = document.createElement('div');
+  logoBox.style.width = '120px';
+  logoBox.style.height = '120px';
+  logoBox.style.background = 'linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%)';
+  logoBox.style.border = '2px dashed rgba(0, 0, 0, 0.2)';
+  logoBox.style.borderRadius = '10px';
+  logoBox.style.display = 'flex';
+  logoBox.style.alignItems = 'center';
+  logoBox.style.justifyContent = 'center';
+  logoBox.style.cursor = 'pointer';
+  logoBox.style.position = 'relative';
+  logoBox.style.overflow = 'hidden';
   
   const logoInput = document.createElement('input');
   logoInput.type = 'file';
   logoInput.id = 'logo-upload';
   logoInput.accept = 'image/*';
+  logoInput.style.position = 'absolute';
   logoInput.style.width = '100%';
   logoInput.style.height = '100%';
-  logoInput.style.padding = '0';
-  logoInput.style.cursor = 'pointer';
-  logoInput.style.position = 'absolute';
   logoInput.style.opacity = '0';
+  logoInput.style.cursor = 'pointer';
   
-  // Přidám emoji jako vizuální indikátor
-  const logoPlaceholder = document.createElement('div');
-  logoPlaceholder.style.fontSize = '32px';
-  logoPlaceholder.style.pointerEvents = 'none';
-  logoPlaceholder.textContent = '✏️';
+  const logoIcon = document.createElement('div');
+  logoIcon.textContent = '✏️';
+  logoIcon.style.fontSize = '32px';
+  logoIcon.style.pointerEvents = 'none';
   
-  logoInputWrapper.appendChild(logoInput);
-  logoInputWrapper.appendChild(logoPlaceholder);
+  logoBox.appendChild(logoInput);
+  logoBox.appendChild(logoIcon);
+  logoContainer.appendChild(logoLabel);
+  logoContainer.appendChild(logoBox);
+  row1.appendChild(logoContainer);
   
-  logoField.appendChild(logoLabel);
-  logoInputWrapper.appendChild(logoInput);
-  logoField.appendChild(logoInputWrapper);
-  row1.appendChild(logoField);
-  
-  // Název a Okres - vpravo (width fill, height fit-content)
+  // Pravý sloupec: Název obce + Okres
   const rightCol = document.createElement('div');
   rightCol.style.display = 'flex';
   rightCol.style.flexDirection = 'column';
   rightCol.style.gap = '16px';
   rightCol.style.flex = '1';
-  rightCol.style.width = '100%';
-  rightCol.style.minWidth = '0';
-  rightCol.style.height = 'fit-content';
   
   // Název obce
-  const nazevLabelWrapper = document.createElement('div');
-  nazevLabelWrapper.style.display = 'flex';
-  nazevLabelWrapper.style.flexDirection = 'column';
-  nazevLabelWrapper.style.gap = '4px';
+  const nazevGroup = document.createElement('div');
+  nazevGroup.style.display = 'flex';
+  nazevGroup.style.flexDirection = 'column';
+  nazevGroup.style.gap = '4px';
   
   const nazevLabel = document.createElement('label');
   nazevLabel.className = 'form-field-label';
@@ -340,15 +325,15 @@ async function openSettingsModal() {
   nazevInput.value = generalInfo.info?.nazevObce || '';
   nazevInput.style.width = '100%';
   
-  nazevLabelWrapper.appendChild(nazevLabel);
-  nazevLabelWrapper.appendChild(nazevInput);
-  rightCol.appendChild(nazevLabelWrapper);
+  nazevGroup.appendChild(nazevLabel);
+  nazevGroup.appendChild(nazevInput);
+  rightCol.appendChild(nazevGroup);
   
   // Okres
-  const okresLabelWrapper = document.createElement('div');
-  okresLabelWrapper.style.display = 'flex';
-  okresLabelWrapper.style.flexDirection = 'column';
-  okresLabelWrapper.style.gap = '4px';
+  const okresGroup = document.createElement('div');
+  okresGroup.style.display = 'flex';
+  okresGroup.style.flexDirection = 'column';
+  okresGroup.style.gap = '4px';
   
   const okresLabel = document.createElement('label');
   okresLabel.className = 'form-field-label';
@@ -359,7 +344,6 @@ async function openSettingsModal() {
   okresSelect.id = 'okres';
   okresSelect.style.width = '100%';
   
-  // Přidání možností okresů
   const okresy = ['Benešov', 'Beroun', 'Kladno', 'Kolín', 'Kutná Hora', 'Mělník', 'Mladá Boleslav', 'Nymburk', 'Praha-východ', 'Praha-západ', 'Příbram', 'Rakovník', 'Pardubický kraj'];
   okresy.forEach(okres => {
     const option = document.createElement('option');
@@ -371,25 +355,25 @@ async function openSettingsModal() {
     okresSelect.appendChild(option);
   });
   
-  okresLabelWrapper.appendChild(okresLabel);
-  okresLabelWrapper.appendChild(okresSelect);
-  rightCol.appendChild(okresLabelWrapper);
+  okresGroup.appendChild(okresLabel);
+  okresGroup.appendChild(okresSelect);
+  rightCol.appendChild(okresGroup);
   
   row1.appendChild(rightCol);
+  modal.content.appendChild(row1);
   
-  // Řádek 2: Starosta a 1. Místostarosta
-  const row2 = modalManager.addRow();
+  // Řádek 2: Starosta a Místostarosta
+  const row2 = document.createElement('div');
   row2.style.display = 'flex';
   row2.style.gap = '20px';
   row2.style.width = '100%';
   
   // Starosta
-  const starostaLabelWrapper = document.createElement('div');
-  starostaLabelWrapper.style.display = 'flex';
-  starostaLabelWrapper.style.flexDirection = 'column';
-  starostaLabelWrapper.style.gap = '4px';
-  starostaLabelWrapper.style.flex = '1';
-  starostaLabelWrapper.style.width = '100%';
+  const starostaGroup = document.createElement('div');
+  starostaGroup.style.display = 'flex';
+  starostaGroup.style.flexDirection = 'column';
+  starostaGroup.style.gap = '4px';
+  starostaGroup.style.flex = '1';
   
   const starostaLabel = document.createElement('label');
   starostaLabel.className = 'form-field-label';
@@ -414,17 +398,16 @@ async function openSettingsModal() {
     }
   });
   
-  starostaLabelWrapper.appendChild(starostaLabel);
-  starostaLabelWrapper.appendChild(starostaSelect);
-  row2.appendChild(starostaLabelWrapper);
+  starostaGroup.appendChild(starostaLabel);
+  starostaGroup.appendChild(starostaSelect);
+  row2.appendChild(starostaGroup);
   
-  // 1. Místostarosta
-  const mistarostaLabelWrapper = document.createElement('div');
-  mistarostaLabelWrapper.style.display = 'flex';
-  mistarostaLabelWrapper.style.flexDirection = 'column';
-  mistarostaLabelWrapper.style.gap = '4px';
-  mistarostaLabelWrapper.style.flex = '1';
-  mistarostaLabelWrapper.style.width = '100%';
+  // Místostarosta
+  const mistarostaGroup = document.createElement('div');
+  mistarostaGroup.style.display = 'flex';
+  mistarostaGroup.style.flexDirection = 'column';
+  mistarostaGroup.style.gap = '4px';
+  mistarostaGroup.style.flex = '1';
   
   const mistarostaLabel = document.createElement('label');
   mistarostaLabel.className = 'form-field-label';
@@ -446,11 +429,13 @@ async function openSettingsModal() {
     }
   });
   
-  mistarostaLabelWrapper.appendChild(mistarostaLabel);
-  mistarostaLabelWrapper.appendChild(mistarostaSelect);
-  row2.appendChild(mistarostaLabelWrapper);
+  mistarostaGroup.appendChild(mistarostaLabel);
+  mistarostaGroup.appendChild(mistarostaSelect);
+  row2.appendChild(mistarostaGroup);
   
-  // Tlačítka
+  modal.content.appendChild(row2);
+  
+  // Tlačítko Uložit
   modalManager.addButton('Uložit', () => {
     alert('Nastavení obce uloženo');
     modalManager.closeModal();
