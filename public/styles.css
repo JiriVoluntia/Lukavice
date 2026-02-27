@@ -387,6 +387,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-top: 30px;
 }
 
 /* STRÁNKA ZASTUPITELŮ */
@@ -400,6 +401,8 @@ main {
   background-color: #ffffff;
   margin-bottom: 30px;
   align-items: center;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .composition-header {
