@@ -111,16 +111,21 @@ async function loadFunctions() {
 // Dynamické načtení návrhů s cachováním
 async function loadProposals() {
   const cached = cache.getCache('proposals');
-  if (cached) return cached;
+  if (cached) {
+    console.log('Proposals loaded from cache:', cached);
+    return cached;
+  }
 
   const proposals = [];
   try {
     const fileList = await fetch('/api/list?dir=data/navrhy').then(r => r.json());
+    console.log('File list from API:', fileList);
     
     for (const fileName of fileList) {
       try {
         const res = await fetch(`data/navrhy/${fileName}.json`);
         const data = await res.json();
+        console.log(`Loaded proposal ${fileName}:`, data);
         proposals.push(data);
       } catch (e) {
         console.error(`Chyba při načítání návrhu ${fileName}:`, e);
@@ -130,6 +135,7 @@ async function loadProposals() {
     console.error('Chyba při načítání návrhů:', error);
   }
   
+  console.log('All proposals loaded:', proposals);
   cache.setCache('proposals', proposals);
   return proposals;
 }
