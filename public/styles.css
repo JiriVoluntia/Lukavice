@@ -78,7 +78,7 @@ nav {
 .nav-logo-text {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 5px;
 }
 
 .nav-logo-title {
