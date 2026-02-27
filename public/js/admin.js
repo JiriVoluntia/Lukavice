@@ -284,11 +284,11 @@ async function openSettingsModal() {
   rightCol.style.flexDirection = 'column';
   rightCol.style.gap = '20px';
   
-  const nazevField = document.createElement('div');
-  nazevField.className = 'form-field';
-  nazevField.style.display = 'flex';
-  nazevField.style.flexDirection = 'column';
-  nazevField.style.gap = '8px';
+  // Název obce
+  const nazevLabelWrapper = document.createElement('div');
+  nazevLabelWrapper.style.display = 'flex';
+  nazevLabelWrapper.style.flexDirection = 'column';
+  nazevLabelWrapper.style.gap = '8px';
   
   const nazevLabel = document.createElement('label');
   nazevLabel.className = 'form-field-label';
@@ -300,15 +300,15 @@ async function openSettingsModal() {
   nazevInput.id = 'nazev-obce';
   nazevInput.value = generalInfo.info?.nazevObce || '';
   
-  nazevField.appendChild(nazevLabel);
-  nazevField.appendChild(nazevInput);
-  rightCol.appendChild(nazevField);
+  nazevLabelWrapper.appendChild(nazevLabel);
+  nazevLabelWrapper.appendChild(nazevInput);
+  rightCol.appendChild(nazevLabelWrapper);
   
-  const okresField = document.createElement('div');
-  okresField.className = 'form-field';
-  okresField.style.display = 'flex';
-  okresField.style.flexDirection = 'column';
-  okresField.style.gap = '8px';
+  // Okres
+  const okresLabelWrapper = document.createElement('div');
+  okresLabelWrapper.style.display = 'flex';
+  okresLabelWrapper.style.flexDirection = 'column';
+  okresLabelWrapper.style.gap = '8px';
   
   const okresLabel = document.createElement('label');
   okresLabel.className = 'form-field-label';
@@ -330,20 +330,20 @@ async function openSettingsModal() {
     okresSelect.appendChild(option);
   });
   
-  okresField.appendChild(okresLabel);
-  okresField.appendChild(okresSelect);
-  rightCol.appendChild(okresField);
+  okresLabelWrapper.appendChild(okresLabel);
+  okresLabelWrapper.appendChild(okresSelect);
+  rightCol.appendChild(okresLabelWrapper);
   
   row1.appendChild(rightCol);
   
   // Řádek 2: Starosta a 1. Místostarosta
   const row2 = modalManager.addRow();
   
-  const starostaField = document.createElement('div');
-  starostaField.className = 'form-field';
-  starostaField.style.display = 'flex';
-  starostaField.style.flexDirection = 'column';
-  starostaField.style.gap = '8px';
+  // Starosta
+  const starostaLabelWrapper = document.createElement('div');
+  starostaLabelWrapper.style.display = 'flex';
+  starostaLabelWrapper.style.flexDirection = 'column';
+  starostaLabelWrapper.style.gap = '8px';
   
   const starostaLabel = document.createElement('label');
   starostaLabel.className = 'form-field-label';
@@ -367,15 +367,15 @@ async function openSettingsModal() {
     }
   });
   
-  starostaField.appendChild(starostaLabel);
-  starostaField.appendChild(starostaSelect);
-  row2.appendChild(starostaField);
+  starostaLabelWrapper.appendChild(starostaLabel);
+  starostaLabelWrapper.appendChild(starostaSelect);
+  row2.appendChild(starostaLabelWrapper);
   
-  const mistarostaField = document.createElement('div');
-  mistarostaField.className = 'form-field';
-  mistarostaField.style.display = 'flex';
-  mistarostaField.style.flexDirection = 'column';
-  mistarostaField.style.gap = '8px';
+  // 1. Místostarosta
+  const mistarostaLabelWrapper = document.createElement('div');
+  mistarostaLabelWrapper.style.display = 'flex';
+  mistarostaLabelWrapper.style.flexDirection = 'column';
+  mistarostaLabelWrapper.style.gap = '8px';
   
   const mistarostaLabel = document.createElement('label');
   mistarostaLabel.className = 'form-field-label';
@@ -396,9 +396,9 @@ async function openSettingsModal() {
     }
   });
   
-  mistarostaField.appendChild(mistarostaLabel);
-  mistarostaField.appendChild(mistarostaSelect);
-  row2.appendChild(mistarostaField);
+  mistarostaLabelWrapper.appendChild(mistarostaLabel);
+  mistarostaLabelWrapper.appendChild(mistarostaSelect);
+  row2.appendChild(mistarostaLabelWrapper);
   
   // Tlačítka
   modalManager.addButton('Uložit', () => {
