@@ -1020,6 +1020,23 @@ main {
   font-size: 18px;
 }
 
+/* TWO COLUMN LAYOUT */
+.modal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.modal-row.full {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 600px) {
+  .modal-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .councillors-section {
   display: flex;
   flex-direction: column;

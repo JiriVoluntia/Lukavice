@@ -137,6 +137,77 @@ class ModalManager {
     return button;
   }
 
+  addRow(fullWidth = false) {
+    const row = document.createElement('div');
+    row.className = fullWidth ? 'modal-row full' : 'modal-row';
+    this.currentModal.content.appendChild(row);
+    return row;
+  }
+
+  addFieldToRow(row, label, type = 'text', placeholder = '', value = '') {
+    const field = document.createElement('div');
+    field.className = 'form-field';
+    
+    const labelEl = document.createElement('label');
+    labelEl.className = 'form-field-label';
+    labelEl.textContent = label;
+    field.appendChild(labelEl);
+    
+    if (type === 'select') {
+      const select = document.createElement('select');
+      select.className = 'form-field-select';
+      select.id = label.toLowerCase().replace(/\s+/g, '-');
+      field.appendChild(select);
+    } else if (type === 'date') {
+      const dateField = document.createElement('div');
+      dateField.className = 'form-field-date';
+      const input = document.createElement('input');
+      input.type = 'date';
+      input.className = 'form-field-input';
+      input.id = label.toLowerCase().replace(/\s+/g, '-');
+      input.value = value;
+      dateField.appendChild(input);
+      field.appendChild(dateField);
+    } else if (type === 'color') {
+      const colorField = document.createElement('div');
+      colorField.className = 'form-field-color';
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'form-field-input';
+      input.id = label.toLowerCase().replace(/\s+/g, '-');
+      input.placeholder = '#000000';
+      input.value = value;
+      input.maxLength = 7;
+      
+      const preview = document.createElement('div');
+      preview.className = 'color-preview';
+      if (value) {
+        preview.style.backgroundColor = value;
+      }
+      
+      input.addEventListener('input', (e) => {
+        if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+          preview.style.backgroundColor = e.target.value;
+        }
+      });
+      
+      colorField.appendChild(input);
+      colorField.appendChild(preview);
+      field.appendChild(colorField);
+    } else {
+      const input = document.createElement('input');
+      input.type = type;
+      input.className = 'form-field-input';
+      input.id = label.toLowerCase().replace(/\s+/g, '-');
+      input.placeholder = placeholder;
+      input.value = value;
+      field.appendChild(input);
+    }
+    
+    row.appendChild(field);
+    return field;
+  }
+
   closeModal() {
     if (this.currentModal) {
       this.currentModal.overlay.remove();

@@ -189,6 +189,7 @@ async function loadSettings() {
   
   container.innerHTML = `
     <div class="settings-form">
+      <button class="admin-btn admin-btn-edit" onclick="openSettingsModal()" style="margin-bottom: 20px;">Upravit nastavení obce</button>
       <div class="form-group">
         <label>Název obce</label>
         <input type="text" id="settingNazev" value="${generalInfo.info?.nazevObce || ''}" class="form-input">
@@ -240,4 +241,137 @@ function deleteParty(id) {
 
 function saveSettings() {
   alert('Nastavení uloženo');
+}
+
+// Otevření popupu pro nastavení obce
+async function openSettingsModal() {
+  const generalInfo = await loadGeneralInfo();
+  const councillors = await loadCouncillors();
+  
+  const modal = modalManager.createModal('Upravit nastavení obce');
+  
+  // Řádek 1: Logo a Název + Okres
+  const row1 = modalManager.addRow();
+  
+  // Logo upload
+  const logoField = document.createElement('div');
+  logoField.className = 'form-field';
+  const logoLabel = document.createElement('label');
+  logoLabel.className = 'form-field-label';
+  logoLabel.textContent = 'Logo';
+  const logoInput = document.createElement('input');
+  logoInput.type = 'file';
+  logoInput.className = 'form-field-input';
+  logoInput.id = 'logo-upload';
+  logoInput.accept = 'image/*';
+  logoField.appendChild(logoLabel);
+  logoField.appendChild(logoInput);
+  row1.appendChild(logoField);
+  
+  // Název a Okres
+  const rightCol = document.createElement('div');
+  rightCol.style.display = 'flex';
+  rightCol.style.flexDirection = 'column';
+  rightCol.style.gap = '20px';
+  
+  const nazevField = document.createElement('div');
+  nazevField.className = 'form-field';
+  const nazevLabel = document.createElement('label');
+  nazevLabel.className = 'form-field-label';
+  nazevLabel.textContent = 'Název obce';
+  const nazevInput = document.createElement('input');
+  nazevInput.type = 'text';
+  nazevInput.className = 'form-field-input';
+  nazevInput.id = 'nazev-obce';
+  nazevInput.value = generalInfo.info?.nazevObce || '';
+  nazevField.appendChild(nazevLabel);
+  nazevField.appendChild(nazevInput);
+  rightCol.appendChild(nazevField);
+  
+  const okresField = document.createElement('div');
+  okresField.className = 'form-field';
+  const okresLabel = document.createElement('label');
+  okresLabel.className = 'form-field-label';
+  okresLabel.textContent = 'Okres';
+  const okresSelect = document.createElement('select');
+  okresSelect.className = 'form-field-select';
+  okresSelect.id = 'okres';
+  
+  // Přidání možností okresů
+  const okresy = ['Benešov', 'Beroun', 'Kladno', 'Kolín', 'Kutná Hora', 'Mělník', 'Mladá Boleslav', 'Nymburk', 'Praha-východ', 'Praha-západ', 'Příbram', 'Rakovník', 'Pardubický kraj'];
+  okresy.forEach(okres => {
+    const option = document.createElement('option');
+    option.value = okres;
+    option.textContent = okres;
+    if (okres === generalInfo.info?.okres) {
+      option.selected = true;
+    }
+    okresSelect.appendChild(option);
+  });
+  
+  okresField.appendChild(okresLabel);
+  okresField.appendChild(okresSelect);
+  rightCol.appendChild(okresField);
+  
+  row1.appendChild(rightCol);
+  
+  // Řádek 2: Starosta a 1. Místostarosta
+  const row2 = modalManager.addRow();
+  
+  const starostaField = document.createElement('div');
+  starostaField.className = 'form-field';
+  const starostaLabel = document.createElement('label');
+  starostaLabel.className = 'form-field-label';
+  starostaLabel.textContent = 'Starosta';
+  const starostaSelect = document.createElement('select');
+  starostaSelect.className = 'form-field-select';
+  starostaSelect.id = 'starosta';
+  
+  const emptyOption = document.createElement('option');
+  emptyOption.value = '';
+  emptyOption.textContent = 'Vyberte zastupitele';
+  starostaSelect.appendChild(emptyOption);
+  
+  Object.values(councillors).forEach(councillor => {
+    if (councillor.aktivni) {
+      const option = document.createElement('option');
+      option.value = councillor.id;
+      option.textContent = councillor.jmeno;
+      starostaSelect.appendChild(option);
+    }
+  });
+  
+  starostaField.appendChild(starostaLabel);
+  starostaField.appendChild(starostaSelect);
+  row2.appendChild(starostaField);
+  
+  const mistarostaField = document.createElement('div');
+  mistarostaField.className = 'form-field';
+  const mistarostaLabel = document.createElement('label');
+  mistarostaLabel.className = 'form-field-label';
+  mistarostaLabel.textContent = '1. Místostarosta';
+  const mistarostaSelect = document.createElement('select');
+  mistarostaSelect.className = 'form-field-select';
+  mistarostaSelect.id = 'mistarosta';
+  
+  mistarostaSelect.appendChild(emptyOption.cloneNode(true));
+  
+  Object.values(councillors).forEach(councillor => {
+    if (councillor.aktivni) {
+      const option = document.createElement('option');
+      option.value = councillor.id;
+      option.textContent = councillor.jmeno;
+      mistarostaSelect.appendChild(option);
+    }
+  });
+  
+  mistarostaField.appendChild(mistarostaLabel);
+  mistarostaField.appendChild(mistarostaSelect);
+  row2.appendChild(mistarostaField);
+  
+  // Tlačítka
+  modalManager.addButton('Uložit', () => {
+    alert('Nastavení obce uloženo');
+    modalManager.closeModal();
+  }, 'save');
 }
